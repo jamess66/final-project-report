@@ -26,6 +26,18 @@
   BoldFont=*-Bold,
   BoldItalicFont=*-BoldItalic,
 ]{Laksaman}
+\IfFontExistsTF{Laksaman}{}{
+  \IfFontExistsTF{Thonburi}{
+    \newfontfamily\thaifont[
+      Script=Thai,
+      Scale=MatchLowercase,
+    ]{Thonburi}
+  }{
+    \newfontfamily\thaifont[
+      Scale=MatchLowercase,
+    ]{Times New Roman}
+  }
+}
 \newfontfamily\thaifontsf[
   Script=Thai,
   Scale=MatchLowercase,
@@ -34,31 +46,84 @@
   BoldFont=*-Bold,
   BoldItalicFont=*-BoldOblique,
 ]{Garuda}
+\IfFontExistsTF{Garuda}{}{
+  \IfFontExistsTF{Thonburi}{
+    \newfontfamily\thaifontsf[
+      Script=Thai,
+      Scale=MatchLowercase,
+    ]{Thonburi}
+  }{
+    \newfontfamily\thaifontsf[
+      Scale=MatchLowercase,
+    ]{Helvetica}
+  }
+}
+\IfFontExistsTF{TlwgTypist}{
 \newfontfamily\thaifonttt[
   % Script=Thai,
   Scale=MatchLowercase,
 ]{TlwgTypist}
+}{
+  \IfFontExistsTF{Courier New}{
+    \newfontfamily\thaifonttt[
+      Scale=MatchLowercase,
+    ]{Courier New}
+  }{
+    \newfontfamily\thaifonttt[
+      Scale=MatchLowercase,
+    ]{Courier}
+  }
+}
 % ]{Arundina Sans Mono}  % doesn't work for now
-\setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
-\setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
-\setmonofont[
-  Mapping=,
-  Scale=MatchLowercase,
-  Extension=.otf,
-  UprightFont=*zi4-Regular,
-  BoldFont=*zi4-Bold,
-  AutoFakeSlant,
-  BoldItalicFont={*zi4-Bold},
-  BoldItalicFeatures={FakeSlant=0.2},
-]{Inconsolata}
+\IfFontExistsTF{TeX Gyre Termes}{
+  \setmainfont[Scale=MatchLowercase]{TeX Gyre Termes}
+}{
+  \IfFontExistsTF{Times New Roman}{
+    \setmainfont[Scale=MatchLowercase]{Times New Roman}
+  }{
+    \setmainfont[Scale=MatchLowercase]{Times}
+  }
+}
+\IfFontExistsTF{TeX Gyre Heros}{
+  \setsansfont[Scale=MatchLowercase]{TeX Gyre Heros}
+}{
+  \IfFontExistsTF{Helvetica Neue}{
+    \setsansfont[Scale=MatchLowercase]{Helvetica Neue}
+  }{
+    \setsansfont[Scale=MatchLowercase]{Helvetica}
+  }
+}
+\IfFontExistsTF{Inconsolata}{
+  \setmonofont[
+    Mapping=,
+    Scale=MatchLowercase,
+    Extension=.otf,
+    UprightFont=*zi4-Regular,
+    BoldFont=*zi4-Bold,
+    AutoFakeSlant,
+    BoldItalicFont={*zi4-Bold},
+    BoldItalicFeatures={FakeSlant=0.2},
+  ]{Inconsolata}
+}{
+  \IfFontExistsTF{Courier New}{
+    \setmonofont[Scale=MatchLowercase]{Courier New}
+  }{
+    \setmonofont[Scale=MatchLowercase]{Courier}
+  }
+}
 
 %% math setup
 \RequirePackage{amsmath}
 \RequirePackage{unicode-math}
-\setmathfont{TeX Gyre Termes Math}
-\setmathfontface\mathrm{TeX Gyre Termes}
-\setmathfontface\mathbf{TeX Gyre Termes Bold}
-\setmathfontface\mathit{TeX Gyre Termes Italic}
+\IfFontExistsTF{TeX Gyre Termes Math}{
+  \setmathfont{TeX Gyre Termes Math}
+}{
+  \IfFontExistsTF{Latin Modern Math}{
+    \setmathfont{Latin Modern Math}
+  }{
+    % Keep unicode-math defaults if no known math font is available.
+  }
+}
 
 \def\th@fam{0}
 \let\th@thaifont=\thaifont

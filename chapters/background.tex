@@ -1,128 +1,128 @@
-\chapter{\ifenglish Background Knowledge and Theory\else ทฤษฎีที่เกี่ยวข้อง\fi}
+\chapter{\ifenglish System Workflow\else การทำงานของระบบ\fi}
 
-การทำโครงงาน เริ่มต้นด้วยการศึกษาค้นคว้า ทฤษฎีที่เกี่ยวข้อง หรือ งานวิจัย/โครงงาน ที่เคยมีผู้นำเสนอไว้แล้ว ซึ่งเนื้อหาในบทนี้ก็จะเกี่ยวกับการอธิบายถึงสิ่งที่เกี่ยวข้องกับโครงงาน เพื่อให้ผู้อ่านเข้าใจเนื้อหาในบทถัดๆ ไปได้ง่ายขึ้น
+\section{เครื่องมือคัดกรองสุขภาพช่องปาก}
 
-\section{The first section}
-The text for Section 1 goes here.
+\begin{tcolorbox}[bluebox]
+  \textbf{Oral Health Assessment Tool (OHAT)} ---
+  ประเมินสภาพช่องปากเพื่อคัดกรองความเสี่ยง
+  และตัดสินใจว่าควรส่งภาพเข้า AI วิเคราะห์หรือไม่
 
-\section{Second section}
-Section 2 text.
+  \vspace{0.5em}
 
-\subsection{Subsection heading goes here}
+  \textbf{Oral Health Impact Profile (OHIP)} ---
+  ประเมินผลกระทบของสุขภาพช่องปากต่อคุณภาพชีวิต
+  ทั้งความเจ็บปวด การใช้ชีวิตประจำวัน และการเข้าสังคม
+\end{tcolorbox}
 
-Subsection 1 text
+\section{กระบวนการยืนยันตัวตนและ Flow การทำงาน}
 
-\subsubsection{Subsubsection 1 heading goes here}
-Subsubsection 1 text
+\subsection{ขั้นตอนการยืนยันตัวตน}
 
-\subsubsection{Subsubsection 2 heading goes here}
-Subsubsection 2 text
+\begin{enumerate}[leftmargin=1.8em, itemsep=3pt]
+  \item ผู้ใช้งานกรอกหมายเลขโทรศัพท์
+  \item ระบบตรวจสอบสถานะการลงทะเบียนในทะเบียนราษฎร์
+  \item \textit{กรณีผู้ใช้ใหม่:} ลงทะเบียน Consent ตาม PDPA และยืนยันบทบาท
+  \item ส่งและยืนยัน OTP ผ่าน SMS
+  \item ให้สิทธิ์ตามบทบาท (ผู้ป่วย หรือ อสม./ผู้คัดกรอง)
+\end{enumerate}
 
-\section{Third section}
-Section 3 text. The dielectric constant\index{dielectric constant}
-at the air-metal interface determines
-the resonance shift\index{resonance shift} as absorption or capture occurs
-is shown in Equation~\eqref{eq:dielectric}:
-
-\begin{equation}\label{eq:dielectric}
-k_1=\frac{\omega}{c({1/\varepsilon_m + 1/\varepsilon_i})^{1/2}}=k_2=\frac{\omega
-\sin(\theta)\varepsilon_\mathit{air}^{1/2}}{c}
-\end{equation}
-
-\noindent
-where $\omega$ is the frequency of the plasmon, $c$ is the speed of
-light, $\varepsilon_m$ is the dielectric constant of the metal,
-$\varepsilon_i$ is the dielectric constant of neighboring insulator,
-and $\varepsilon_\mathit{air}$ is the dielectric constant of air.
-
-\section{About using figures in your report}
-
-% define a command that produces some filler text, the lorem ipsum.
-\newcommand{\loremipsum}{
-  \textit{Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat. Duis aute irure dolor in
-  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-  culpa qui officia deserunt mollit anim id est laborum.}\par}
-
-\begin{figure}
+%% >> แทนที่ด้วย: fig_auth_flow.png
+%% ที่มา: สไลด์ที่ 12
+\begin{figure}[H]
   \centering
-
-  \fbox{
-     \parbox{.6\textwidth}{\loremipsum}
-  }
-
-  % To include an image in the figure, say myimage.pdf, you could use
-  % the following code. Look up the documentation for the package
-  % graphicx for more information.
-  % \includegraphics[width=\textwidth]{myimage}
-
-  \caption[Sample figure]{This figure is a sample containing \gls{lorem ipsum},
-  showing you how you can include figures and glossary in your report.
-  You can specify a shorter caption that will appear in the List of Figures.}
-  \label{fig:sample-figure}
+  \placeholder{fig\_auth\_flow.png}{Diagram Flow การยืนยันตัวตน พร้อมภาพหน้าจอ Mobile (สไลด์ 12)}
+  \caption{ขั้นตอนการยืนยันตัวตนของ eDENT-ELDER:
+    กรอกเบอร์โทร ยืนยัน OTP ลง Consent PDPA และได้รับสิทธิ์ตามบทบาท}
 \end{figure}
 
-Using \verb.\label. and \verb.\ref. commands allows us to refer to
-figures easily. If we can refer to Figures
-\ref{fig:walrus} and \ref{fig:sample-figure} by name in the {\LaTeX}
-source code, then we will not need to update the code that refers to it
-even if the placement or ordering of the figures changes.
+\subsection{Flow การทำงานระบบแบบ 5 เลน}
 
-\loremipsum\loremipsum
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{|l|X|}
+  \hline
+  \rowcolor{primaryblue}
+  \textcolor{white}{\textbf{เลน}} & \textcolor{white}{\textbf{หน้าที่}}\\
+  \hline
+  \textbf{เลน 1} \textemdash{} ผู้ป่วย / อสม. &
+    รับข้อมูลและ Consent; แบบสอบถาม OHAT/OHIP;
+    ถ่ายภาพผ่าน Quality Gate; ส่งเข้า AI\\
+  \hline
+  \textbf{เลน 2} \textemdash{} ระบบ AI &
+    ตรวจสอบคุณภาพภาพ; ตรวจจับรอยโรคและประเมินความเสี่ยง;
+    จัดการ Fallback\\
+  \hline
+  \textbf{เลน 3} \textemdash{} ผู้คัดกรอง &
+    Screener Dashboard; Triage ผล AI;
+    Flag Retrain หรือ Escalate\\
+  \hline
+  \textbf{เลน 4} \textemdash{} ผู้เชี่ยวชาญ &
+    ยืนยันวินิจฉัย; แจ้งเตือน LINE; ติดตาม 14 วัน; ปิดเคส\\
+  \hline
+  \textbf{เลน 5} \textemdash{} ผู้ดูแลระบบ / วิชาการ &
+    Dashboard ระดับประชากร; แผนที่ความเสี่ยงจังหวัด; กำกับระบบ\\
+  \hline
+\end{tabularx}
 
-% This code demonstrates how to get a landscape table or figure. It
-% uses the package lscape to turn everything but the page number into
-% landscape orientation. Everything should be included within an
-% \afterpage{ .... } to avoid causing a page break too early.
-\afterpage{
-  \begin{landscape}
-  \begin{table}
-    \caption{Sample landscape table}
-    \label{tab:sample-table}
+\vspace{8pt}
 
-    \centering
+%% >> แทนที่ด้วย: fig_system_flow.png
+%% ที่มา: สไลด์ที่ 13
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_system\_flow.png}{Diagram Flow 5 เลนพร้อมภาพหน้าจอทุกกลุ่มผู้ใช้ (สไลด์ 13)}
+  \caption{Flow การทำงานระบบ eDENT-ELDER แบบ 5 เลน}
+\end{figure}
 
-    \begin{tabular}{c||c|c}
-        Year & A & B \\
-        \hline\hline
-        1989 & 12 & 23 \\
-        1990 & 4 & 9 \\
-        1991 & 3 & 6 \\
-    \end{tabular}
-  \end{table}
-  \end{landscape}
-}
+\subsection{อินเทอร์เฟซ Mobile สำหรับผู้ป่วยและ อสม.}
 
-\loremipsum\loremipsum\loremipsum
+%% >> แทนที่ด้วย: fig_patient_vhv_ui.png
+%% ที่มา: สไลด์ที่ 14
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_patient\_vhv\_ui.png}{หน้าจอ Mobile ผู้ป่วยและ อสม. (สไลด์ 14)}
+  \caption{อินเทอร์เฟซ Mobile: รายชื่อผู้ป่วย ผล OHAT แบบ OHIP
+    การถ่ายภาพ AI-Guided และหน้าแสดงผล AI (จากซ้ายไปขวา)}
+\end{figure}
 
-\section{Overfull hbox}
+\subsection{Screener Dashboard}
 
-When the \verb.semifinal. option is passed to the \verb.cpecmu. document class,
-any line that is longer than the line width, i.e., an overfull hbox, will be
-highlighted with a black solid rule:
-\begin{center}
-\begin{minipage}{2em}
-juxtaposition
-\end{minipage}
-\end{center}
+%% >> แทนที่ด้วย: fig_screener_dashboard.png
+%% ที่มา: สไลด์ที่ 15
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_screener\_dashboard.png}{Screener Dashboard บน Tablet (สไลด์ 15)}
+  \caption{Screener Dashboard: คิวภาพเคสพร้อม AI Tag (ซ้าย)
+    รายละเอียดเคสพร้อม Annotation (กลาง) และตาราง OHAT/OHIP (ขวา)}
+\end{figure}
 
-\section{\ifenglish%
-\ifcpe CPE \else ISNE \fi knowledge used, applied, or integrated in this project
-\else%
-ความรู้ตามหลักสูตรซึ่งถูกนำมาใช้หรือบูรณาการในโครงงาน
-\fi
-}
+\subsection{Specialist Dashboard}
 
-อธิบายถึงความรู้ และแนวทางการนำความรู้ต่างๆ ที่ได้เรียนตามหลักสูตร ซึ่งถูกนำมาใช้ในโครงงาน
+%% >> แทนที่ด้วย: fig_specialist_dashboard.png
+%% ที่มา: สไลด์ที่ 16
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_specialist\_dashboard.png}{Specialist Dashboard บน Tablet (สไลด์ 16)}
+  \caption{Specialist Dashboard: คิว Referral (ซ้าย) รายละเอียดเคส (กลาง)
+    แผนที่ความเสี่ยงระดับจังหวัด (ขวา)}
+\end{figure}
 
-\section{\ifenglish%
-Extracurricular knowledge used, applied, or integrated in this project
-\else%
-ความรู้นอกหลักสูตรซึ่งถูกนำมาใช้หรือบูรณาการในโครงงาน
-\fi
-}
+\subsection{ภาพหน้าจอจากโปสเตอร์โครงงาน}
 
-อธิบายถึงความรู้ต่างๆ ที่เรียนรู้ด้วยตนเอง และแนวทางการนำความรู้เหล่านั้นมาใช้ในโครงงาน
+%% >> แทนที่ด้วย: fig_poster_interface.png
+%% ที่มา: โปสเตอร์ v1 คอลัมน์ขวา บน
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_poster\_interface.png}{อินเทอร์เฟซแพลตฟอร์มจากโปสเตอร์ v1 (บน)}
+  \caption{eDENT-ELDER Platform Interface (โปสเตอร์ v1):
+    ระบบ AI ช่วยตรวจจับรอยโรค แสดง Workflow การคัดกรองแบบ Mobile-first}
+\end{figure}
+
+%% >> แทนที่ด้วย: fig_poster_screener.png
+%% ที่มา: โปสเตอร์ v1 คอลัมน์ขวา ล่าง
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_poster\_screener.png}{หน้าจอผู้เชี่ยวชาญและผู้คัดกรองจากโปสเตอร์ v1 (ล่าง)}
+  \caption{อินเทอร์เฟซวินิจฉัยสำหรับผู้เชี่ยวชาญ (บน) และผู้คัดกรอง (ล่าง)
+    พร้อมการเชื่อมต่อผ่าน QR Code}
+\end{figure}
+

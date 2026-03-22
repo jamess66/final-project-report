@@ -1,0 +1,83 @@
+\documentclass[final]{cpecmu}
+
+\projectNo{261492}
+\acadyear{2568}
+
+\titleTH{eDENT-ELDER: แพลตฟอร์มดิจิทัลสำหรับการค้นหาและวิเคราะห์รอยโรคก่อนมะเร็งและมะเร็งช่องปาก}
+\titleEN{eDENT-ELDER: A Digital Platform for Detecting and Analyzing Potentially Malignant Disorders and Oral Cancer}
+
+\author{Kawin Choosin}{Kawin Choosin}{650610745}
+\author{Natthapon Chanawerot}{Natthapon Chanawerot}{650612082}
+\author{Thanawat Jaisert}{Thanawat Jaisert}{650610768}
+\author{Pariwat Wonginchan}{Pariwat Wonginchan}{650612089}
+
+\cpeadvisor{chinawat}
+\cpecommittee{paskorn}
+\committee{รศ.ดร.\,ปฏิเวธ วุฒิสารวัฒนา}{Assoc.\,Prof.\,Patiwet Wutthisarnwattana, Ph.D.}
+\committee{ผศ.ดร.\,โดม โพธิ์กาญจนดล}{Asst.\,Prof.\,Dome Photkarnchondol, Ph.D.}
+\committee{ผศ.ดร.\,นวดล คูณเลิศกิจ}{Asst.\,Prof.\,Nawadol Koonlertkit, Ph.D.}
+
+\usepackage[final]{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{pifont}
+
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[colorlinks=true,allcolors=Blue4,citecolor=red,linktoc=all]{hyperref}
+\def\UrlLeft#1\UrlRight{$#1$}
+
+\definecolor{primaryblue}{HTML}{1565C0}
+\definecolor{lightblue}{HTML}{E3F2FD}
+\definecolor{darkgray}{HTML}{212121}
+\definecolor{medgray}{HTML}{757575}
+\definecolor{successgreen}{HTML}{2E7D32}
+\definecolor{phfill}{HTML}{F0F4FF}
+\definecolor{phborder}{HTML}{90A4AE}
+\definecolor{phtext}{HTML}{546E7A}
+\definecolor{darkyellow}{HTML}{E65100}
+\definecolor{dangerred}{HTML}{B71C1C}
+
+\captionsetup{font=small, labelfont={bf,color=primaryblue}, skip=4pt}
+\tcbset{
+  bluebox/.style={enhanced,breakable,colback=lightblue,colframe=primaryblue,
+    boxrule=1pt,arc=5pt,left=9pt,right=9pt,top=7pt,bottom=7pt,fonttitle=\bfseries},
+  graybox/.style={enhanced,breakable,colback=gray!7,colframe=gray!35,
+    boxrule=0.6pt,arc=5pt,left=9pt,right=9pt,top=7pt,bottom=7pt},
+  greenbox/.style={enhanced,colback=green!6,colframe=successgreen,
+    boxrule=0.8pt,arc=5pt,left=9pt,right=9pt,top=7pt,bottom=7pt},
+  phbox/.style={enhanced,colback=phfill,colframe=phborder,
+    boxrule=1pt,arc=4pt,left=10pt,right=10pt,top=16pt,bottom=16pt,
+    halign=center,valign=center}
+}
+
+\newcommand{\placeholder}[2]{%
+  \begin{tcolorbox}[phbox]
+    {\color{phtext}\large\bfseries [\,ช่องว่างสำหรับรูปภาพ\,]}\\[5pt]
+    {\color{primaryblue}\small\ttfamily #1}\\[5pt]
+    {\color{phtext}\small #2}\\[6pt]
+    {\color{medgray}\footnotesize\itshape แทนที่ด้วยไฟล์ภาพ: \texttt{#1}}
+  \end{tcolorbox}%
+}
+
+\begin{document}
+\include{chapters/frontmatter}
+
+\pagestyle{empty}\cleardoublepage
+\normalspacing \setcounter{page}{1} \pagenumbering{arabic} \pagestyle{cpecmu}
+
+\include{chapters/intro}
+\include{chapters/background}
+\include{chapters/approach}
+\include{chapters/eval}
+\include{chapters/conclusion}
+\appendix
+\include{chapters/appendix}
+
+\end{document}

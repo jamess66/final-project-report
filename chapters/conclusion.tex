@@ -1,18 +1,59 @@
-\chapter{\ifenglish Conclusions and Discussions\else บทสรุปและข้อเสนอแนะ\fi}
+\chapter{\ifenglish Conclusion\else บทสรุป\fi}
 
-\section{\ifenglish Conclusions\else สรุปผล\fi}
+\section{สรุปและบทสรุป}
 
-นศ. ควรสรุปถึงข้อจำกัดของระบบในด้านต่างๆ ที่ระบบมีในเนื้อหาส่วนนี้ด้วย
+eDENT-ELDER เป็นการ Re-engineer ระบบ AIDOC เฟส~1 อย่างครบวงจร
+แปลงระบบที่เปราะบางให้กลายเป็นแพลตฟอร์มสุขภาพดิจิทัลที่ปลอดภัย
+ขยายได้ และผ่านการรับรองทางคลินิก
 
-\section{\ifenglish Challenges\else ปัญหาที่พบและแนวทางการแก้ไข\fi}
+\begin{tcolorbox}[bluebox, title=ผลสำเร็จหลัก]
+  \begin{itemize}[leftmargin=1.4em, itemsep=5pt]
+    \item \textbf{สถาปัตยกรรม:}
+          Hybrid Modular System (Next.js + FastAPI + DDD) แทน Legacy Monolith
+    \item \textbf{ระบบ AI:}
+          Dual-Path Inference Latency $<200\,\text{ms}$
+          อัตราสำเร็จ $\approx$99.9\% จำนวน 694 การคัดกรองที่สำเร็จ
+    \item \textbf{ความปลอดภัย:}
+          กรอบ PDPA/HIPAA พร้อม Tamper-Proof Audit Logging
+          และ RBAC ครอบคลุม 6 บทบาท
+    \item \textbf{DevOps:}
+          Docker Containerization ครบวงจร พร้อม CI/CD Pipeline
+          และการแยก Environment เข้มงวด
+    \item \textbf{คุณภาพ:}
+          900 Automated Test ผ่าน 100\%
+          Coverage 100\% บน Critical Business Logic
+    \item \textbf{ความร่วมมือ:}
+          หลายสถาบัน ครอบคลุมทันตแพทยศาสตร์ วิศวกรรมศาสตร์ และสาธารณสุขชุมชน
+  \end{itemize}
+\end{tcolorbox}
 
-ในการทำโครงงานนี้ พบว่าเกิดปัญหาหลักๆ ดังนี้
+แพลตฟอร์มพร้อม Deploy ระดับนำร่องในเชียงใหม่ พะเยา ภูเก็ต และหนองบัวลำภู
+เพื่อช่วยให้ตรวจพบมะเร็งช่องปากในผู้สูงอายุชนบทเร็วขึ้น
+ลดการวินิจฉัยระยะท้าย และพัฒนาผลลัพธ์ผู้ป่วยในวงกว้าง
 
-\section{\ifenglish%
-Suggestions and further improvements
-\else%
-ข้อเสนอแนะและแนวทางการพัฒนาต่อ
-\fi
-}
+โครงการนี้ประสบความสำเร็จในการแก้ปัญหาคอขวดและจุดล้มเหลวของระบบเดิม
+เปลี่ยนผ่านสู่ \textbf{แพลตฟอร์มทางการแพทย์พร้อมใช้งานจริง (Production-Ready)}
+ด้วยสถาปัตยกรรมที่เสถียร ปลอดภัย และสมบูรณ์ระดับ Enterprise
 
-ข้อเสนอแนะเพื่อพัฒนาโครงงานนี้ต่อไป มีดังนี้
+\vspace{0.5em}
+\begin{tcolorbox}[graybox]
+  \textbf{งานในอนาคต (Future Work):}
+  \begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item ขยาย AI Model ครอบคลุมรอยโรคช่องปากเพิ่มเติม
+          และปรับปรุงความแม่นยำด้วย Dataset Annotation จากพื้นที่นำร่อง
+    \item ขยายสู่จังหวัดเพิ่มเติมและเชื่อมต่อกับระบบสารสนเทศสุขภาพ (HIS) ของไทย
+    \item ดำเนินการศึกษา Clinical Validation อย่างเป็นทางการ
+          วัด Stage-Shift และเวลาพบผู้เชี่ยวชาญในกลุ่มนำร่อง
+    \item สำรวจการเชื่อมต่อ LINE OA และ PWA Offline Mode
+          สำหรับชุมชนที่มีอินเทอร์เน็ตจำกัด
+  \end{itemize}
+\end{tcolorbox}
+
+\vfill
+{\color{primaryblue}\rule{\linewidth}{1pt}}
+\begin{center}
+  \small\color{medgray}
+  eDENT-ELDER เฟส 2 รายงานโครงงานฉบับสมบูรณ์ $\cdot$
+  รหัสวิชา 261492 $\times$ 2568 $\cdot$
+  ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่
+\end{center}

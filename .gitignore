@@ -19,3 +19,5 @@
 *.synctex(busy)
 __latexindent*
 sampleReport.pdf
+.texlive
+.texmf

@@ -1,7 +1,60 @@
-\chapter{\ifproject%
-\ifenglish Experimentation and Results\else การทดลองและผลลัพธ์\fi
-\else%
-\ifenglish System Evaluation\else การประเมินระบบ\fi
-\fi}
+\chapter{\ifenglish Testing and Quality Assurance\else การทดสอบและการรับรองคุณภาพ\fi}
 
-ในบทนี้จะทดสอบเกี่ยวกับการทำงานในฟังก์ชันหลักๆ
+\section{การทดสอบและการรับรองคุณภาพทางวิศวกรรม}
+
+\subsection{กลยุทธ์และเครื่องมือทดสอบ}
+
+\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
+  \item \textbf{Unit Test} --- ทดสอบ Function, Method และ Class แต่ละตัวแยกกัน
+  \item \textbf{Integration Test} --- ทดสอบการทำงานร่วมกันของหลาย Component
+\end{itemize}
+
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{lX}
+  \toprule
+  \textbf{เครื่องมือ} & \textbf{วัตถุประสงค์}\\
+  \midrule
+  Vitest                & Test Runner สำหรับ Unit และ Integration Test ที่รวดเร็ว\\
+  React Testing Library & ทดสอบ UI ระดับ Component\\
+  jsdom                 & จำลองสภาพแวดล้อม Browser\\
+  \bottomrule
+\end{tabularx}
+
+\subsection{ผลการทดสอบ}
+
+%% >> แทนที่ด้วย: fig_test_results.png
+%% ที่มา: สไลด์ที่ 27
+\begin{figure}[H]
+  \centering
+  \placeholder{fig\_test\_results.png}{รายงาน Coverage และ Vitest UI: 900 ผ่าน / 0 ล้มเหลว (สไลด์ 27)}
+  \caption{ผลการรับรองคุณภาพ: Coverage $\approx$75\% โดยรวม พร้อม 100\% บน Critical Module;
+    Vitest UI ยืนยัน 900 Test ผ่านภายใน $<$13\,s}
+\end{figure}
+
+\begin{tcolorbox}[greenbox]
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\linewidth}{Xl}
+    \textbf{จำนวน Test ทั้งหมด}              & 900 (Unit + Integration)\\
+    \textbf{สถานะ} &
+      \textcolor{successgreen}{\textbf{ผ่าน 100\% --- ล้มเหลว 0 Test}}\\
+    \textbf{Code Coverage โดยรวม}            & $\approx$75\%\\
+    \textbf{Coverage บน Critical Business Logic} & \textbf{100\%}\\
+    \textbf{เวลาที่ใช้รัน}                  & $<13\,\text{s}$\\
+  \end{tabularx}
+\end{tcolorbox}
+
+\subsection{Module หลักที่ผ่านการตรวจสอบ}
+
+\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
+  \item \textbf{Auth} --- การยืนยันตัวตนและการควบคุมสิทธิ์ตามบทบาท
+  \item \textbf{Clinical} --- Logic แบบสอบถาม OHIP, OHAT และการคำนวณคะแนนวินิจฉัย
+  \item \textbf{Upload} --- Pipeline อัปโหลดไฟล์ปลอดภัยพร้อม Quality-Gate Validation
+\end{itemize}
+
+\section{Feedback จากการพัฒนา}
+
+กระบวนการพัฒนาได้รับ Feedback โดยตรงจากผู้เชี่ยวชาญที่มีประสบการณ์จริง
+ในการพัฒนาแพลตฟอร์ม Web ทางคลินิกทันตกรรม
+ข้อมูลนี้ชี้นำการออกแบบ Interface, Clinical Workflow Integration
+และ Logic ของแบบสอบถาม เพื่อให้แพลตฟอร์มสะท้อนความต้องการในการปฏิบัติงานจริง
+
