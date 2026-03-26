@@ -46,49 +46,50 @@
   \end{tabularx}
 \end{tcolorbox}
 
-\subsection{Synthetic Load Profile (หัวข้อ 4.1)}
+\subsection{โปรไฟล์ภาระงานสังเคราะห์ (Synthetic Load Profile)}
 
 ผลการทดสอบภายใต้ภาระงานสังเคราะห์ (Synthetic Load) มีรายละเอียดดังนี้
-\begin{tcolorbox}[bluebox,title={Synthetic Load Profile Summary}]
+\begin{tcolorbox}[bluebox,title={สรุปผล Synthetic Load Profile}]
   \renewcommand{\arraystretch}{1.35}
   \begin{tabularx}{\linewidth}{Xl}
-    \textbf{Duration}       & 1 Hour\\
-    \textbf{Total Requests} & 7,632\\
-    \textbf{Avg RPS}        & 2.12\\
+    \textbf{ระยะเวลา}       & 1 ชั่วโมง\\
+    \textbf{จำนวน Request ทั้งหมด} & 7,632\\
+    \textbf{ค่าเฉลี่ย RPS}        & 2.12\\
+    \textbf{อัตรา Request สำเร็จ} & 99.46\%\\
   \end{tabularx}
 \end{tcolorbox}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.1.png}
-  \caption{Synthetic Load Profile: Average Request Duration (milliseconds)}
+  \caption{Synthetic Load Profile: ค่าเฉลี่ย Request Duration (milliseconds)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.2.png}
-  \caption{Synthetic Load Profile: Failed Inference Requests Rate}
+  \caption{Synthetic Load Profile: อัตรา Failed Inference Request}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.3.png}
-  \caption{Synthetic Load Profile: Queue Duration (milliseconds)}
+  \caption{Synthetic Load Profile: ระยะเวลารอใน Queue (milliseconds)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.4.png}
-  \caption{Synthetic Load Profile: Inference Compute Duration (milliseconds)}
+  \caption{Synthetic Load Profile: ระยะเวลา Compute ใน Inference (milliseconds)}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.5.png}
-  \caption{Synthetic Load Profile: AI Inference Speed (Latency - ms)}
+  \caption{Synthetic Load Profile: ความเร็ว AI Inference (Latency - ms)}
 \end{figure}
 
-\subsection{Module หลักที่ผ่านการตรวจสอบ}
+\subsection{โมดูลหลักที่ผ่านการตรวจสอบ}
 
 \begin{itemize}[leftmargin=1.8em, itemsep=3pt]
   \item \textbf{Auth} --- การยืนยันตัวตนและการควบคุมสิทธิ์ตามบทบาท
