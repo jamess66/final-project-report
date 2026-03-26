@@ -3,23 +3,23 @@
 
 \ifproject
 \begin{abstractTH}
-เขียนบทคัดย่อของโครงงานที่นี่
+โครงการนี้มีวัตถุประสงค์เพื่อพัฒนาแพลตฟอร์มดิจิทัลสำหรับการคัดกรองและวิเคราะห์รอยโรคก่อนมะเร็งและมะเร็งช่องปาก (Oral Potentially Malignant Disorders: OPMD และ Oral Cancer) โดยมุ่งเน้นการเพิ่มการเข้าถึงบริการทางทันตกรรมในกลุ่มผู้สูงอายุและประชาชนในพื้นที่ห่างไกล ระบบ eDENT-ELDER Phase 2 ได้รับการออกแบบให้เป็นแพลตฟอร์มแบบ Hybrid ที่ผสานเทคโนโลยีปัญญาประดิษฐ์ (AI) เข้ากับ Mobile Application และระบบ Tele-consult แบบ Asynchronous เพื่อสนับสนุนการคัดกรองโดยอาสาสมัครสาธารณสุขและบุคลากรแนวหน้า
 
-การเขียนรายงานเป็นส่วนหนึ่งของการทำโครงงานวิศวกรรมคอมพิวเตอร์
-เพื่อทบทวนทฤษฎีที่เกี่ยวข้อง อธิบายขั้นตอนวิธีแก้ปัญหาเชิงวิศวกรรม และวิเคราะห์และสรุปผลการทดลองอุปกรณ์และระบบต่างๆ
-\enskip อย่างไรก็ดี การสร้างรูปเล่มรายงานให้ถูกรูปแบบนั้นเป็นขั้นตอนที่ยุ่งยาก
-แม้ว่าจะมีต้นแบบสำหรับใช้ในโปรแกรม Microsoft Word แล้วก็ตาม
-แต่นักศึกษาส่วนใหญ่ยังคงค้นพบว่าการใช้งานมีความซับซ้อน และเกิดความผิดพลาดในการจัดรูปแบบ กำหนดเลขหัวข้อ และสร้างสารบัญอยู่
-\enskip ภาควิชาวิศวกรรมคอมพิวเตอร์จึงได้จัดทำต้นแบบรูปเล่มรายงานโดยใช้ระบบจัดเตรียมเอกสาร
-\LaTeX{} เพื่อช่วยให้นักศึกษาเขียนรายงานได้อย่างสะดวกและรวดเร็วมากยิ่งขึ้น
+ในด้านสถาปัตยกรรม ระบบได้รับการปรับปรุงจากรูปแบบ Monolithic ไปสู่ Modular Monolith บนแนวคิด Clean Architecture โดยใช้ Next.js สำหรับส่วน Frontend และ FastAPI สำหรับ Backend ร่วมกับฐานข้อมูล PostgreSQL และระบบจัดเก็บข้อมูล MinIO และ Redis เพื่อเพิ่มความสามารถในการขยายระบบและความทนทาน นอกจากนี้ ได้มีการพัฒนาระบบ AI แบบ Dual-Path ซึ่งประกอบด้วย Primary Path ที่ใช้ GPU (NVIDIA Triton Inference Server) และ Fallback Path ที่ใช้ CPU (TensorFlow Lite) เพื่อรองรับการทำงานต่อเนื่องและลดความเสี่ยงจาก Single Point of Failure โดยสามารถสลับการทำงานอัตโนมัติภายในเวลาไม่เกิน 1 วินาที
+
+ผลการทดสอบระบบพบว่าสามารถรองรับการคัดกรองได้มากกว่า 500 กรณี โดยมีค่า latency เฉลี่ยต่ำกว่า 200 มิลลิวินาที และมีความเสถียรของระบบในระดับสูง นอกจากนี้ ระบบยังรองรับมาตรฐานความปลอดภัยของข้อมูล เช่น PDPA และ HIPAA ผ่านการเข้ารหัสแบบ End-to-End และการกำหนดสิทธิ์การเข้าถึงแบบ Role-Based Access Control
+
+โดยสรุป ระบบ eDENT-ELDER Phase 2 เป็นแพลตฟอร์มทางการแพทย์ที่สามารถนำไปใช้งานจริงในระดับชุมชน ช่วยเพิ่มโอกาสในการตรวจพบโรคในระยะเริ่มต้น ลดภาระของบุคลากรทางการแพทย์ และสนับสนุนการพัฒนาระบบสุขภาพดิจิทัลอย่างยั่งยืน
 \end{abstractTH}
 
 \begin{abstract}
-The abstract would be placed here. It usually does not exceed 350 words
-long (not counting the heading), and must not take up more than one (1) page
-(even if fewer than 350 words long).
+This project presents a digital platform for detecting and analyzing Oral Potentially Malignant Disorders (OPMD) and oral cancer, aiming to improve access to early screening among elderly populations and underserved communities. The proposed system, eDENT-ELDER Phase 2, is designed as a hybrid AI-driven medical platform integrating mobile applications and asynchronous teleconsultation to support frontline healthcare workers and village health volunteers.
 
-Make sure your abstract sits inside the \texttt{abstract} environment.
+The system architecture has been re-engineered from a monolithic design to a modular monolith based on Clean Architecture principles. It employs Next.js for the frontend and FastAPI for the backend, along with PostgreSQL, MinIO, and Redis for data management and processing. A key contribution is the Dual-Path AI system, which combines a GPU-based primary inference pipeline (NVIDIA Triton) with a CPU-based fallback (TensorFlow Lite), enabling automatic failover within one second and ensuring high system availability.
+
+Experimental results demonstrate that the platform can process over 500 screening cases with an average inference latency below 200 ms and high system reliability. The platform also complies with medical data security standards, including PDPA and HIPAA, through end-to-end encryption and role-based access control.
+
+In conclusion, eDENT-ELDER Phase 2 provides a scalable and reliable AI-assisted screening platform suitable for real-world deployment, enhancing early detection rates, reducing healthcare workload, and supporting sustainable digital health systems.
 \end{abstract}
 
 \iffalse
@@ -31,11 +31,33 @@ Dedication page is optional.
 \fi % \iffalse
 
 \begin{acknowledgments}
-Your acknowledgments go here. Make sure it sits inside the
-\texttt{acknowledgment} environment.
+โครงการแพลตฟอร์มดิจิทัลสำหรับการค้นหาและวิเคราะห์รอยโรคก่อนมะเร็งและมะเร็งช่องปาก (eDENT-ELDER Phase 2)
+สำเร็จลุล่วงไปได้ด้วยความกรุณาและการสนับสนุนจากหลายภาคส่วน
 
-\acksign{2020}{5}{25}
+ขอกราบขอบพระคุณ รองศาสตราจารย์ ดร. ปฏิเวธ วุฒิสารวัฒนา 
+(Assoc. Prof. Patiwet Wuttisarnwattana, Ph.D.) อาจารย์ที่ปรึกษา 
+ที่ได้ให้คำแนะนำ ข้อเสนอแนะ และการสนับสนุนทางวิชาการอย่างใกล้ชิดตลอดระยะเวลาการดำเนินโครงการ 
+รวมถึงช่วยชี้แนะแนวทางในการพัฒนาและปรับปรุงระบบให้มีประสิทธิภาพและเหมาะสมต่อการใช้งานจริง
+
+ขอขอบพระคุณ ผู้ช่วยศาสตราจารย์ โดม โพธิกานนท์ 
+(Asst. Prof. Dome Potikanond) และ ผู้ช่วยศาสตราจารย์ ดร. นวดนย์ คุณเลิศกิจ 
+(Asst. Prof. Navadon Khunlertgit, Ph.D.) คณะกรรมการสอบ 
+ที่ได้กรุณาให้คำแนะนำ ข้อคิดเห็น และข้อเสนอแนะอันเป็นประโยชน์
+
+ขอขอบพระคุณคณาจารย์ ผู้เชี่ยวชาญ หน่วยงานที่เกี่ยวข้อง อาสาสมัครสาธารณสุข (อสม.) 
+และบุคลากรทางการแพทย์ทุกท่าน ที่มีส่วนร่วมในการให้ข้อมูล และสนับสนุนการพัฒนาโครงการ
+
+ขอขอบคุณเพื่อนร่วมทีมทุกคนที่ร่วมแรงร่วมใจในการออกแบบ พัฒนา และทดสอบระบบ 
+จนโครงการสำเร็จลุล่วงตามเป้าหมาย
+
+สุดท้ายนี้ ขอขอบคุณครอบครัวและผู้มีส่วนเกี่ยวข้องทุกท่าน 
+ที่ให้การสนับสนุน กำลังใจ และความเข้าใจตลอดระยะเวลาการดำเนินโครงการ
+
+คณะผู้จัดทำขอขอบพระคุณทุกท่านมา ณ โอกาสนี้
+
+\acksign{2025}{3}{25}
 \end{acknowledgments}%
+
 \fi % \ifproject
 
 \contentspage
@@ -48,6 +70,6 @@ Your acknowledgments go here. Make sure it sits inside the
 
 % \abbrlist % this page is optional
 
-% \symlist % this page is optional
+% \symlist % this page is optionalที่มาและความสําคัญของปัญหา
 
 % \preface % this section is optional

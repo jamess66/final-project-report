@@ -11,7 +11,7 @@
 %% ที่มา: สไลด์ที่ 3 (ข่าว Amarin News)
 \begin{figure}[H]
   \centering
-  \placeholder{fig\_bg\_news.png}{ภาพข่าวแสดงกรณีมะเร็งช่องปากและการวินิจฉัยล่าช้าในชนบทไทย (สไลด์ 3)}
+  \includegraphics[width=0.9\linewidth]{fig/_bg/fig_bg_news.png}
   \caption{สื่อมวลชนรายงานปัญหาการวินิจฉัยมะเร็งช่องปากล่าช้า
     ผู้ป่วยในชนบทมักซื้อยามารับประทานเองจนอาการรุนแรง
     ที่มา: Amarin News / กรมอนามัย}
@@ -33,13 +33,13 @@
   \centering
   \begin{minipage}[t]{0.48\linewidth}
     \centering
-    \placeholder{fig\_bg\_lesion1.png}{ภาพทางคลินิก ภาพซ้าย (สไลด์ 4)}
+    \includegraphics[width=\linewidth]{fig/_bg/fig_bg_lesion1.png}
     \caption{รอยโรคช่องปาก ตัวอย่างเคสที่ 1}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.48\linewidth}
     \centering
-    \placeholder{fig\_bg\_lesion2.png}{ภาพทางคลินิก ภาพขวา (สไลด์ 4)}
+    \includegraphics[width=\linewidth]{fig/_bg/fig_bg_lesion2.png}
     \caption{รอยโรคช่องปาก ตัวอย่างเคสที่ 2}
   \end{minipage}
 \end{figure}
@@ -49,7 +49,7 @@
 \begin{figure}[H]
   \centering
   \begin{minipage}{0.65\linewidth}
-    \placeholder{fig\_bg\_lesion\_annotated.png}{ภาพทางคลินิกพร้อม Annotation สีเหลือง (สไลด์ 5)}
+    \includegraphics[width=\linewidth]{fig/_bg/fig_bg_lesion_annotated.png}
   \end{minipage}
   \caption{การ Annotation รอยโรคก่อนมะเร็งด้วย AI
     เส้นกรอบสีเหลืองแสดงบริเวณที่ส่งให้ผู้เชี่ยวชาญตรวจสอบ}
@@ -59,7 +59,7 @@
 %% ที่มา: สไลด์ที่ 6
 \begin{figure}[H]
   \centering
-  \placeholder{fig\_bg\_stats\_chart.png}{กราฟสถิติรอยโรคช่องปากระดับประเทศ ปีงบประมาณ 2559 (สไลด์ 6)}
+  \includegraphics[width=0.95\linewidth]{fig/_bg/fig_bg_stats_chart.png}
   \caption{ข้อมูลรอยโรคช่องปากทั่วประเทศ ปีงบประมาณ 2559 (ยกเว้น กทม.)
     จำแนกเป็น 3 กลุ่ม ตามช่วงอายุ ที่มา: กรมอนามัย}
 \end{figure}
@@ -68,7 +68,7 @@
 %% ที่มา: สไลด์ที่ 7
 \begin{figure}[H]
   \centering
-  \placeholder{fig\_bg\_registry\_table.png}{ตารางจำนวนทันตแพทย์เฉพาะทาง ราชวิทยาลัยทันตแพทย์ (สไลด์ 7)}
+  \includegraphics[width=0.95\linewidth]{fig/_bg/fig_bg_registry_table.png}
   \caption{จำนวนทันตแพทย์เฉพาะทาง ณ วันที่ 21 พฤศจิกายน 2567
     แถวที่ 9 (ไฮไลต์) สาขาวิทยาการวินิจัยโรคช่องปาก มีทันตแพทย์เพียง 96 คน}
 \end{figure}
@@ -114,7 +114,7 @@
 %% ที่มา: สไลด์ที่ 8
 \begin{figure}[H]
   \centering
-  \placeholder{fig\_aidoc\_screenshot.png}{หน้าจอระบบ AIDOC เฟส 1 (สไลด์ 8)}
+  \includegraphics[width=0.95\linewidth]{fig/_bg/fig_aidoc_screenshot.png}
   \caption{ระบบ AIDOC เฟส 1: (ซ้าย) หน้า Consent และ Login;
     (ขวา) Workflow อัปโหลดภาพและคัดกรองด้วย AI
     สร้างด้วย Flask + Bootstrap + MySQL}
@@ -132,7 +132,7 @@
 \begin{figure}[H]
   \centering
   \begin{minipage}{0.72\linewidth}
-    \placeholder{fig\_legacy\_arch.png}{Diagram สถาปัตยกรรม Flask Monolith (สไลด์ 9/18)}
+    \includegraphics[width=\linewidth]{fig/_bg/fig_legacy_arch.png}
   \end{minipage}
   \caption{สถาปัตยกรรมระบบเดิม: Flask ทำหน้าที่ทั้ง Frontend, Backend, AI Inference
     และ Image Storage ในหน่วยเดียว ความล้มเหลวของส่วนใดทำให้ระบบทั้งหมดหยุด}
@@ -233,7 +233,7 @@
   \renewcommand{\arraystretch}{1.5}
   \begin{tabularx}{\linewidth}{@{}>{\bfseries\color{primaryblue}}p{0.26\linewidth}X@{}}
     Hybrid Mobile Platform &
-      อินเทอร์เฟซที่ใช้งานง่ายผ่าน LINE Chatbot และ Web Dashboard
+      อินเทอร์เฟซที่ใช้งานง่ายผ่านมุมมองมือถือ และ Web Dashboard
       สำหรับผู้ดูแลและเจ้าหน้าที่ภาคสนาม\\
     AI-Guided Screening &
       AI ตรวจจับรอยโรค OPMD/OSCC พร้อม Assisted-Capture
