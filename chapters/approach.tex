@@ -8,7 +8,7 @@
 
 \begin{enumerate}
 \item การสังเคราะห์ข้อกำหนดจากปัญหาหน้างานและงานวิจัยที่เกี่ยวข้อง
-\item การออกแบบสถาปัตยกรรมระบบและ workflow หลายบทบาท
+\item การออกแบบสถาปัตยกรรมระบบและ workflow แบบหลายบทบาท
 \item การพัฒนาและเชื่อมต่อระบบ Frontend, Backend และ AI Integration
 \item การทดสอบและประเมินผลทั้งด้านฟังก์ชัน ประสิทธิภาพ และความทนทาน
 \end{enumerate}
@@ -27,7 +27,7 @@
 แม้ว่าจะมีการพัฒนา AI สำหรับวิเคราะห์ภาพทางการแพทย์อย่างต่อเนื่อง
 แต่ระบบส่วนใหญ่ยังไม่สามารถนำไปใช้งานจริงได้ในระดับชุมชน
 เนื่องจากขาดการออกแบบระบบที่รองรับ workflow ของผู้ใช้งานจริง
-และไม่มีความเสถียรเพียงพอสำหรับการใช้งานในระดับ production
+และยังไม่มีความเสถียรเพียงพอสำหรับการใช้งานในระดับบริการ
 
 ดังนั้น โครงงานนี้จึงมุ่งเน้นการออกแบบระบบแบบ end-to-end
 ที่สามารถผสาน Mobile Health, AI และ Telemedicine
@@ -75,8 +75,8 @@
 ระบบถูกออกแบบให้รองรับผู้ใช้งาน 5 บทบาทหลัก:
 
 \begin{itemize}
-\item Patient / VHV
-\item AI System
+\item Patient
+\item VHV (Village Health Volunteer)
 \item Screener
 \item Specialist
 \item Administrator
@@ -101,7 +101,7 @@
 📌 \textbf{[ใส่รูป]} High-Level Architecture
 
 ระบบใช้แนวคิด Layered Architecture ร่วมกับ Domain-Driven Design (DDD)
-ภายใต้รูปแบบ Modular Monolith เพื่อแยก business logic ออกจาก infrastructure
+ภายใต้รูปแบบ Modular Monolith architecture เพื่อแยก business logic ออกจาก infrastructure
 และลดความซับซ้อนในการดูแลระบบในระยะพัฒนา
 
 % -------------------------
@@ -124,10 +124,10 @@ Cache/Queue & Redis + Celery \\
 % -------------------------
 \subsection{Low-Level Architecture}
 
-ระบบ backend รองรับ:
+ระบบ Backend รองรับ:
 \begin{itemize}
 \item JWT Authentication
-\item RBAC
+\item Role-Based Access Control (RBAC)
 \item Redis Queue
 \item Audit Log (Hash-chain)
 \end{itemize}
@@ -137,9 +137,9 @@ Cache/Queue & Redis + Celery \\
 
 แนวทางสถาปัตยกรรมที่เลือกใช้ช่วยให้ระบบ:
 \begin{itemize}
-\item ลด complexity
-\item เพิ่ม maintainability
-\item รองรับ scaling
+\item ลดความซับซ้อน (complexity)
+\item เพิ่มความสามารถในการบำรุงรักษา (maintainability)
+\item รองรับการขยายระบบ (scalability)
 \end{itemize}
 
 นอกจากนี้ยังเอื้อต่อการแยกบริการออกเป็น microservice ในอนาคต
@@ -159,7 +159,7 @@ Cache/Queue & Redis + Celery \\
 
 เมื่อเส้นทางหลักไม่ตอบสนองตามเวลาที่กำหนด
 ระบบจะทำ failover ไปยังเส้นทางสำรองโดยอัตโนมัติ
-เพื่อลดผลกระทบต่อผู้ใช้งานปลายทาง
+ภายในเวลาไม่เกิน $\leq 1\,\text{s}$ เพื่อลดผลกระทบต่อผู้ใช้งานปลายทาง
 
 % -------------------------
 \subsection{เหตุผลในการออกแบบ}
@@ -187,7 +187,7 @@ Cache/Queue & Redis + Celery \\
 
 \begin{itemize}
 \item JWT
-\item RBAC
+\item Role-Based Access Control (RBAC)
 \item Encryption
 \item Audit Logging
 \end{itemize}
@@ -219,4 +219,4 @@ Cache/Queue & Redis + Celery \\
 ถูกออกแบบให้ผสาน workflow จริงเข้ากับเทคโนโลยี
 
 ส่งผลให้สามารถนำไปใช้งานจริงในระดับชุมชนได้
-และมีความเสถียรในระดับ production
+และมีความเสถียรในระดับบริการ

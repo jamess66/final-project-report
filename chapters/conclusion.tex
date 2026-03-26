@@ -10,7 +10,7 @@
 ตั้งแต่การเก็บข้อมูลผู้ป่วย การวิเคราะห์ด้วย AI ไปจนถึงการให้คำปรึกษาจากผู้เชี่ยวชาญ
 โดยมีความเสถียรและประสิทธิภาพในระดับที่เหมาะสมต่อการใช้งานจริง
 
-นอกจากนี้ การออกแบบระบบในลักษณะ Modular Architecture
+นอกจากนี้ การออกแบบระบบในลักษณะ Modular Monolith architecture
 ร่วมกับแนวคิด Dual-Path AI และ DevOps Pipeline
 ช่วยให้ระบบมีความยืดหยุ่น สามารถขยายระบบได้ในอนาคต
 และลดความเสี่ยงจากความล้มเหลวของระบบ
@@ -18,19 +18,19 @@
 \begin{tcolorbox}[bluebox, title=ผลสำเร็จหลัก]
   \begin{itemize}[leftmargin=1.4em, itemsep=5pt]
     \item \textbf{สถาปัตยกรรม:}
-          Hybrid Modular System (Next.js + FastAPI + DDD) แทน Legacy Monolith
+          Modular Monolith architecture (Next.js + FastAPI + DDD) แทนสถาปัตยกรรมเดิมแบบ monolith
     \item \textbf{ระบบ AI:}
-          Dual-Path Inference Latency $<200\,\text{ms}$ ภายใต้ Synthetic Load
-          อัตรา Request สำเร็จ 99.46\% Request ทั้งหมด 7,632
+          Dual-Path AI มี inference latency $<200\,\text{ms}$ ภายใต้ synthetic load
+          อัตรา request สำเร็จ 99.46\% จากทั้งหมด 7,632 requests
     \item \textbf{ความปลอดภัย:}
           กรอบ PDPA/HIPAA พร้อม Tamper-Proof Audit Logging
-          และ RBAC ครอบคลุม 6 บทบาท
+          และ Role-Based Access Control (RBAC) ครอบคลุม 6 บทบาท
     \item \textbf{DevOps:}
           Docker Containerization ครบวงจร พร้อม CI/CD Pipeline
           และการแยก Environment เข้มงวด
     \item \textbf{คุณภาพ:}
-          900 Automated Test ผ่าน 100\%
-          Coverage 100\% บน Critical Business Logic
+          900 automated tests ผ่าน 100\%
+          100\% coverage บน critical business logic
     \item \textbf{ความร่วมมือ:}
           หลายสถาบัน ครอบคลุมทันตแพทยศาสตร์ วิศวกรรมศาสตร์ และสาธารณสุขชุมชน
   \end{itemize}
@@ -42,7 +42,7 @@
 
 โครงการนี้ประสบความสำเร็จในการแก้ปัญหาคอขวดและจุดล้มเหลวของระบบเดิม
 เปลี่ยนผ่านสู่ \textbf{แพลตฟอร์มทางการแพทย์พร้อมใช้งานจริง (Production-Ready)}
-ด้วยสถาปัตยกรรมที่เสถียร ปลอดภัย และสมบูรณ์ระดับ Enterprise
+ด้วยสถาปัตยกรรมที่เสถียร ปลอดภัย และเหมาะสมต่อการใช้งานจริงในระดับบริการ
 \vspace{0.5em}
 \begin{tcolorbox}[graybox]
   \textbf{ข้อจำกัดของโครงการ (Limitations):}

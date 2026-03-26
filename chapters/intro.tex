@@ -183,7 +183,7 @@
   \item \textbf{Fallback Path:} TensorFlow Lite (CPU, HTTP)
         พร้อม Auto Failover อัตโนมัติ
   \item \textbf{Health Monitoring:} ตรวจสอบสถานะต่อเนื่อง
-        เปิด Auto-Switch ภายใน $<2\,\text{s}$
+      เปิด Auto-Switch ภายในเวลาไม่เกิน $\leq 1\,\text{s}$
 \end{itemize}
 
 \subsection{เสาหลักที่ 3: Data and Processing Layer}
@@ -200,7 +200,7 @@
 
 \begin{itemize}[leftmargin=1.8em, itemsep=3pt]
   \item \textbf{TLS 1.3} เข้ารหัสการสื่อสารทุกส่วนแบบ End-to-End
-  \item \textbf{RBAC} ครอบคลุม 6 บทบาท:
+  \item \textbf{Role-Based Access Control (RBAC)} ครอบคลุม 6 บทบาท:
         ผู้ป่วย, อสม., ทันตแพทย์, ผู้คัดกรอง, ผู้เชี่ยวชาญ, ผู้ดูแลระบบ
   \item \textbf{2-Tier Audit Logging + Hash-Chain} ป้องกันการแก้ไขย้อนหลัง
         ตรวจสอบได้ 100\%
@@ -241,7 +241,7 @@
     Elderly-Centric Empowerment &
       เสริมพลัง อสม. (อายุ 50+) ในการคัดกรอง
       สื่อสารความเสี่ยง และส่งต่ออย่างเป็นระบบ\\
-    Async.\ Tele-Consult &
+    asynchronous teleconsultation &
       ระบบ Store-and-Forward เชื่อมต่อ อสม. กับผู้เชี่ยวชาญ
       โดยไม่ต้องนัดหมายพร้อมกัน\\
   \end{tabularx}
