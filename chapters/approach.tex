@@ -36,8 +36,6 @@
 ระบบรองรับผู้ใช้งานหลายบทบาท ได้แก่
 ผู้ป่วย อาสาสมัครสาธารณสุข (อสม.) ผู้คัดกรอง ผู้เชี่ยวชาญ และผู้ดูแลระบบ
 
-📌 \textbf{[ใส่รูป]} System Overview Architecture
-
 % =====================================================
 \section{การออกแบบ Workflow ของระบบ (System Workflow)}
 
@@ -98,7 +96,12 @@
 
 \subsection{ภาพรวมสถาปัตยกรรม}
 
-📌 \textbf{[ใส่รูป]} High-Level Architecture
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/3.1.png}
+    \caption{High-Level Architecture}
+    \label{fig:high-level-architecture}
+\end{figure}
 
 ระบบใช้แนวคิด Layered Architecture ร่วมกับ Domain-Driven Design (DDD)
 ภายใต้รูปแบบ Modular Monolith architecture เพื่อแยก business logic ออกจาก infrastructure
@@ -150,7 +153,12 @@ Cache/Queue & Redis + Celery \\
 
 \subsection{Dual-Path AI}
 
-📌 \textbf{[ใส่รูป]} Dual Path Diagram
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/3.2.png}
+    \caption{Dual Path AI Diagram}
+    \label{fig:dual-path-ai}
+\end{figure}
 
 \begin{itemize}
 \item GPU (Primary)
