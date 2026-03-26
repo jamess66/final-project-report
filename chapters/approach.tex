@@ -1,383 +1,176 @@
-\chapter{\ifenglish Architecture, AI, and Security\else สถาปัตยกรรม ระบบ AI และความปลอดภัย\fi}
+\chapter{\ifenglish Methodology and System Design\else วิธีการดำเนินงานและการออกแบบระบบ\fi}
 
-\section{สถาปัตยกรรมระบบ}
+% =====================================================
+\section{ภาพรวมของระบบ (System Overview)}
 
-\subsection{เปรียบเทียบระบบเดิมและระบบใหม่}
+โครงงาน eDENT-ELDER Phase 2 ถูกพัฒนาขึ้นเพื่อแก้ไขข้อจำกัดของระบบคัดกรองรอยโรคในช่องปากแบบดั้งเดิม
+โดยเฉพาะในบริบทของประเทศไทยที่มีข้อจำกัดด้านการเข้าถึงบริการทางการแพทย์
+ในพื้นที่ชนบทและกลุ่มผู้สูงอายุ
 
-เฟส~1 รวมทุกอย่างไว้ใน Flask Deployment เดียว
-เฟส~2 ใช้ \textbf{Service-Based Hybrid Architecture ที่มี Modular Monolith Core}
+จากการศึกษางานวิจัยในบทที่ 2 พบว่า
+แม้ว่าจะมีการพัฒนา AI สำหรับวิเคราะห์ภาพทางการแพทย์อย่างต่อเนื่อง
+แต่ระบบส่วนใหญ่ยังไม่สามารถนำไปใช้งานจริงได้ในระดับชุมชน
+เนื่องจากขาดการออกแบบระบบที่รองรับ workflow ของผู้ใช้งานจริง
+และไม่มีความเสถียรเพียงพอสำหรับการใช้งานในระดับ production
 
-%% >> แทนที่ด้วย: fig_new_arch.png
-%% ที่มา: สไลด์ที่ 17/19
-\begin{figure}[H]
-  \centering
-  \placeholder{fig\_new\_arch.png}{ภาพรวมสถาปัตยกรรมระบบเฟส 2 (สไลด์ 17/19)}
-  \caption{สถาปัตยกรรมระบบเฟส 2 (High-Level):
-    Next.js + FastAPI (DDD) + PostgreSQL/MinIO/Redis + Celery + Dual-Path AI
-    + Security Layer + Integrations}
-\end{figure}
+ดังนั้น โครงงานนี้จึงมุ่งเน้นการออกแบบระบบแบบ end-to-end
+ที่สามารถผสาน Mobile Health, AI และ Telemedicine
+เข้ากับการทำงานของบุคลากรสาธารณสุขได้อย่างมีประสิทธิภาพ
+
+ระบบรองรับผู้ใช้งานหลายบทบาท ได้แก่
+ผู้ป่วย อาสาสมัครสาธารณสุข (อสม.) ผู้คัดกรอง ผู้เชี่ยวชาญ และผู้ดูแลระบบ
+
+📌 \textbf{[ใส่รูป]} System Overview Architecture
+
+% =====================================================
+\section{การออกแบบ Workflow ของระบบ (System Workflow)}
+
+\subsection{เครื่องมือและเกณฑ์การคัดกรอง}
 
 \begin{tcolorbox}[bluebox]
-  \centering{\large\itshape Scalable $\cdot$ Maintainable $\cdot$ Future-proof}
+\textbf{Oral Health Assessment Tool (OHAT)}  
+ใช้ประเมินความเสี่ยงของสภาพช่องปากเบื้องต้น
+
+\textbf{Oral Health Impact Profile (OHIP)}  
+ใช้ประเมินผลกระทบของสุขภาพช่องปากต่อคุณภาพชีวิต
 \end{tcolorbox}
 
-\subsubsection{Technology Stack}
+การเลือกใช้เครื่องมือมาตรฐานช่วยลดความแปรปรวนของผลลัพธ์
+และเพิ่มความน่าเชื่อถือของระบบคัดกรอง
 
-\renewcommand{\arraystretch}{1.3}
-\begin{tabularx}{\linewidth}{lX}
-  \toprule
-  \textbf{Layer} & \textbf{เทคโนโลยี}\\
-  \midrule
-  Frontend           & Next.js (Layered Design)\\
-  Backend            & FastAPI (Domain-Driven Design)\\
-  ฐานข้อมูลหลัก     & PostgreSQL (OLTP + Audit)\\
-  Object Storage     & MinIO\\
-  Queue และ Cache    & Redis\\
-  Background Workers & Celery\\
-  AI Primary         & NVIDIA Triton Inference Server (TensorRT, gRPC)\\
-  AI Fallback        & TensorFlow Lite via FastAPI (HTTP)\\
-  Integrations       & SMS/OTP (Thaibureau), ทะเบียนราษฎร์, Maps\\
-  \bottomrule
-\end{tabularx}
+% -------------------------
+\subsection{กระบวนการยืนยันตัวตน}
 
-\subsubsection{ข้อได้เปรียบหลัก}
+ระบบใช้การยืนยันตัวตนผ่าน OTP และ Consent ตาม PDPA
+เพื่อให้มั่นใจว่าข้อมูลผู้ป่วยได้รับการจัดการอย่างปลอดภัย
 
-\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
-  \item Business Logic แยกออกจาก AI Inference Layer อย่างสมบูรณ์
-  \item Schema Validation End-to-End: Zod (Frontend) + Pydantic (Backend)
-  \item พร้อมสำหรับ Microservices ในการ Scale AI หรือข้อมูลในอนาคต
+\begin{enumerate}
+\item กรอกหมายเลขโทรศัพท์
+\item ยืนยัน OTP
+\item ลง Consent
+\item กำหนดบทบาท
+\end{enumerate}
+
+📌 \textbf{[ใส่รูป]} Authentication Flow
+
+% -------------------------
+\subsection{Workflow แบบ Multi-Role}
+
+ระบบถูกออกแบบเป็น 5 เลน:
+
+\begin{itemize}
+\item Patient / VHV
+\item AI System
+\item Screener
+\item Specialist
+\item Administrator
 \end{itemize}
 
-\subsubsection{รายละเอียดสถาปัตยกรรม Low-Level}
+📌 \textbf{[ใส่รูป]} 5-Lane Workflow Diagram
 
-\renewcommand{\arraystretch}{1.35}
-\begin{tabularx}{\linewidth}{>{\bfseries\color{primaryblue}}lX}
-  \toprule
-  \textbf{Component} & \textbf{รายละเอียด}\\
-  \midrule
-  JWT Auth Guard      & Access/Refresh Token แบบ Stateless
-                        บังคับใช้ที่ทุก API Boundary\\
-  gRPC / HTTP         & Primary Path ใช้ gRPC ไปยัง Triton;
-                        Fallback ใช้ HTTP REST ไปยัง TFLite\\
-  AI Inference Queue  & Celery Queue บน Redis แยก Upload จาก Inference\\
-  2-Tier Audit Chain  & ทุก Write เพิ่ม Record ที่มี Hash ของ Record ก่อนหน้า\\
-  Archival \& Cleanup & Worker เก็บถาวร Record เก่าและบังคับนโยบาย Retention\\
-  Compliance Tasks    & ตรวจสอบ Consent หมดอายุ, Anonymise ข้อมูล, รายงาน PDPA\\
-  \bottomrule
-\end{tabularx}
+% -------------------------
+\subsection{เหตุผลในการออกแบบ Workflow}
 
-%% >> แทนที่ด้วย: fig_lowlevel_arch.png
-%% ที่มา: โปสเตอร์ v2
-\begin{figure}[H]
-  \centering
-  \placeholder{fig\_lowlevel\_arch.png}{Diagram สถาปัตยกรรม Low-Level (โปสเตอร์ v2)}
-  \caption{สถาปัตยกรรม Low-Level: JWT, gRPC/HTTP, Async Queue
-    (Redis $\rightarrow$ Celery), และประเภทงาน Worker ทั้งหมด}
-\end{figure}
+การออกแบบ workflow แบบ multi-role
+ช่วยให้ระบบสอดคล้องกับการทำงานจริงในระบบสาธารณสุข
 
-\section{ระบบ AI แบบ Dual-Path ที่มีความพร้อมใช้งานสูง}
+การใช้ asynchronous teleconsultation
+ช่วยลดข้อจำกัดด้านเวลา และเพิ่ม scalability
 
-%% >> แทนที่ด้วย: fig_dual_ai_arch.png
-%% ที่มา: สไลด์ที่ 20
-\begin{figure}[H]
-  \centering
-  \placeholder{fig\_dual\_ai\_arch.png}{Diagram Dual-Path AI: Triton Primary และ TFLite Fallback (สไลด์ 20)}
-  \caption{ระบบ AI แบบ Dual-Path: Primary Path ผ่าน NVIDIA Triton (gRPC + TensorRT, $<$200\,ms)
-    พร้อม Auto Failover ไปยัง TFLite/FastAPI ภายใน $<$2 วินาที}
-\end{figure}
+% =====================================================
+\section{สถาปัตยกรรมของระบบ (System Architecture)}
 
-\subsection{Primary Path}
+\subsection{ภาพรวมสถาปัตยกรรม}
 
-\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
-  \item \textbf{Engine:} NVIDIA Triton Inference Server
-  \item \textbf{การประมวลผล:} เร่งด้วย GPU (gRPC + TensorRT Optimization)
-  \item \textbf{Latency:} $<200\,\text{ms}$ ต่อการ Inference
-  \item \textbf{Models:} รัน Ensemble Models พร้อมกัน (ตรวจรอยโรค + ตรวจคุณภาพภาพ)
-\end{itemize}
+📌 \textbf{[ใส่รูป]} High-Level Architecture
 
-\subsection{Fallback Path}
+ระบบใช้แนวคิด Modular Monolith ร่วมกับ DDD
+เพื่อแยก business logic ออกจาก infrastructure
 
-\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
-  \item \textbf{Engine:} TensorFlow Lite (CPU, HTTP via FastAPI)
-  \item \textbf{Auto Failover:} $<$1 วินาที หาก Primary Path ล้มเหลว
-\end{itemize}
+% -------------------------
+\subsection{Technology Stack}
 
-\subsection{ผลการทดสอบประสิทธิภาพจริง}
-
-\textit{สภาพแวดล้อมทดสอบ: CPU 4 Core, NVIDIA GTX 1060 GPU, RAM 32\,GB}
-
-\vspace{4pt}
-\renewcommand{\arraystretch}{1.35}
-\begin{tabularx}{\linewidth}{Xc}
-  \toprule
-  \textbf{ตัวชี้วัด} & \textbf{ผลลัพธ์}\\
-  \midrule
-  จำนวนการคัดกรองที่สำเร็จทั้งหมด       & \textbf{694}\\
-  อัตราความสำเร็จ Throughput             & $\approx$99.9\%\\
-  Average Inference Latency (End-to-End) & $<500\,\text{ms}$\\
-  \quad ความเร็ว Quality Check           & $<100\,\text{ms}$\\
-  \quad ความเร็ว Lesion Detection        & $\approx$400\,\text{ms}\\
-  GPU Compute (TensorRT)                 & $38.1\,\text{ms}$\\
-  DALI Preprocessing Stage              & $\approx$19.7\,\text{ms}\\
-  เวลา Auto-Switch Failover             & $<2\,\text{s}$\\
-  อัตราการ Inference ล้มเหลว            & $\approx$0\%\\
-  \bottomrule
-\end{tabularx}
-
-\vspace{8pt}
-
-\subsection{ผลลัพธ์เชิงสถาปัตยกรรม}
-
-\begin{tcolorbox}[graybox]
-\begin{itemize}[leftmargin=1.4em, itemsep=6pt]
-  \item \textbf{Zero-Downtime AI Capability} ---
-        สลับจาก Triton (GPU) ไปยัง TFLite (CPU) โดยไม่หยุดให้บริการ
-        แม้ AI Server หลักจะ Crash
-  \item \textbf{ขจัดปัญหา API Timeout} ---
-        AI Inference ประมวลผลแบบ Async (Batch/Queue)
-        แก้ปัญหา Request บล็อกภายใต้โหลดสูง
-  \item \textbf{Healthcare Compliance Ready} ---
-        RBAC และ 2-Tier Audit Logging ตรวจสอบข้อมูลย้อนหลังได้ 100\%
-        ตามมาตรฐาน PDPA/HIPAA
-  \item \textbf{Modular Design และ Scalability} ---
-        Scale Frontend, Backend และ AI ได้อย่างอิสระ
-        เพิ่มฟีเจอร์ใหม่โดยไม่กระทบ Component อื่น
-  \item \textbf{High Maintainability} ---
-        Schema Validation ด้วย Zod + Pydantic
-        ลด Technical Debt แบบ End-to-End
-\end{itemize}
-\end{tcolorbox}
-
-%% >> แทนที่ด้วย: fig_performance_metrics.png
-%% ที่มา: สไลด์ที่ 21
-\begin{figure}[H]
-  \centering
-  \placeholder{fig\_performance\_metrics.png}{Dashboard ตัวชี้วัดประสิทธิภาพ (สไลด์ 21)}
-  \caption{ตัวชี้วัดประสิทธิภาพ AI Inference Server:
-    Request Duration ($<$200\,ms), Failure Rate ($\approx$0\%),
-    DALI vs.\ TensorRT Pipeline ($\approx$19.7 vs.\ 20.5\,ms)
-    รวม 694 การคัดกรองที่สำเร็จ}
-\end{figure}
-
-\section{โครงสร้างพื้นฐานสมัยใหม่และ DevOps}
-
-%% >> แทนที่ด้วย: fig_devops.png
-%% ที่มา: สไลด์ที่ 22
-\begin{figure}[H]
-  \centering
-  \placeholder{fig\_devops.png}{Docker, CI/CD Pipeline, Environment Segregation (สไลด์ 22)}
-  \caption{โครงสร้างพื้นฐานสมัยใหม่: Docker Containerization ครบทุก Service,
-    CI/CD Pipeline อัตโนมัติ Zero-Downtime Deployment
-    และการแยก Staging/Production อย่างเข้มงวด}
-\end{figure}
-
-\begin{tcolorbox}[graybox]
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\linewidth}{@{}>{\bfseries\color{primaryblue}}p{0.28\linewidth}X@{}}
-    Full Containerization &
-      ทุก Service อยู่ใน Docker ขจัด XAMPP Dependency
-      ทำงานได้เหมือนกันทั้งบน Cloud และ On-Premise\\
-    CI/CD Pipeline &
-      Pipeline อัตโนมัติแทนการ Clone/Install ด้วยมือ
-      รองรับ Zero-Downtime Deployment\\
-    Environment Segregation &
-      แยก Staging และ Production อย่างเด็ดขาด
-      ป้องกัน Hardcoded Settings ในระบบจริง\\
-  \end{tabularx}
-\end{tcolorbox}
-
-\section{กรอบความปลอดภัยและการปฏิบัติตามมาตรฐาน}
-
-ส่วนนี้ประเมินสถานะความปลอดภัยของเฟส~2 อย่างโปร่งใส
-โดยแยกแยะสิ่งที่ดำเนินการแล้ว สิ่งที่อยู่ระหว่างดำเนินการ
-และสิ่งที่อยู่นอกขอบเขตโครงงาน สัญลักษณ์:
-
-\vspace{4pt}
-\begin{tabular}{@{}ll@{}}
-  \textbf{\color{successgreen}\ding{51}~ดำเนินการแล้ว} &
-    สร้าง ทดสอบ และใช้งานอยู่จริง\\
-  \textbf{\color{darkyellow}${\sim}$~บางส่วน} &
-    มีกลไกหลักแล้ว แต่ยังไม่ได้รับการรับรองภายนอก\\
-  \textbf{\color{dangerred}\ding{55}~ยังไม่ได้ดำเนินการ} &
-    วางแผนไว้แต่อยู่นอกขอบเขตเฟส~2\\
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+Frontend & Next.js \\
+Backend & FastAPI \\
+Database & PostgreSQL \\
+Storage & MinIO \\
+Cache/Queue & Redis + Celery \\
+\bottomrule
 \end{tabular}
-\vspace{8pt}
+\caption{Technology Stack}
+\end{table}
 
-\subsection{การคุ้มครองข้อมูลและความเป็นส่วนตัว}
+% -------------------------
+\subsection{Low-Level Architecture}
 
-\renewcommand{\arraystretch}{1.45}
-\begin{tabularx}{\linewidth}{|X|c|X|}
-  \hline
-  \rowcolor{primaryblue}
-  \textcolor{white}{\textbf{ข้อกำหนด}} &
-  \textcolor{white}{\textbf{สถานะ}} &
-  \textcolor{white}{\textbf{หมายเหตุ}}\\
-  \hline
-  เข้ารหัสข้อมูลระหว่างรับส่ง (TLS 1.3) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  การสื่อสารทั้งหมดเข้ารหัสด้วย TLS~1.3\\
-  \hline
-  เข้ารหัสข้อมูลที่จัดเก็บ (ฐานข้อมูล) &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  เปิด PostgreSQL Encryption แล้ว
-  แต่การเข้ารหัสระดับ Disk ขึ้นอยู่กับ Infrastructure\\
-  \hline
-  เข้ารหัสข้อมูลที่จัดเก็บ (Object Storage) &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  เปิด MinIO Server-Side Encryption แล้ว
-  แต่ยังไม่ได้เชื่อมต่อ KMS\\
-  \hline
-  การรับ Consent และจัดเก็บ (PDPA) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  รับ Consent ผ่าน OTP พร้อม Timestamp และ User ID\\
-  \hline
-  สิทธิ์การลบข้อมูล (Right to Erasure) &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  ยังไม่ได้สร้าง Workflow ลบข้อมูลตาม PDPA ม.33
-  วางแผนสำหรับเฟส~3\\
-  \hline
-  นโยบาย Data Minimisation &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  เก็บเฉพาะข้อมูลที่จำเป็นทางคลินิก
-  แต่ยังไม่มีเอกสารนโยบายอย่างเป็นทางการ\\
-  \hline
-  ควบคุมการถ่ายโอนข้อมูลข้ามพรมแดน &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  ข้อมูลทั้งหมดอยู่ในไทย
-  แต่ยังไม่ได้จัดทำ Transfer Impact Assessment\\
-  \hline
-\end{tabularx}
+ระบบ backend รองรับ:
+\begin{itemize}
+\item JWT Authentication
+\item RBAC
+\item Redis Queue
+\item Audit Log (Hash-chain)
+\end{itemize}
 
-\subsection{การควบคุมการเข้าถึงและการยืนยันตัวตน}
+% -------------------------
+\subsection{เหตุผลในการออกแบบ}
 
-\begin{tabularx}{\linewidth}{|X|c|X|}
-  \hline
-  \rowcolor{primaryblue}
-  \textcolor{white}{\textbf{ข้อกำหนด}} &
-  \textcolor{white}{\textbf{สถานะ}} &
-  \textcolor{white}{\textbf{หมายเหตุ}}\\
-  \hline
-  Role-Based Access Control (RBAC) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  6 บทบาทบังคับใช้ที่ทุก API Route\\
-  \hline
-  JWT Authentication (Access + Refresh) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  Access Token 15 นาที + Refresh Token อายุยาว
-  บังคับผ่าน Auth Guard\\
-  \hline
-  OTP / SMS ยืนยันตัวตน &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  OTP ผ่าน Thaibureau SMS Gateway
-  ใช้ทั้งการลงทะเบียนและยืนยันซ้ำ\\
-  \hline
-  Multi-Factor Authentication (MFA) &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  มี OTP เฉพาะตอนลงทะเบียน
-  ยังไม่มี Step-Up MFA สำหรับบทบาทสิทธิ์สูง\\
-  \hline
-  Session Timeout และการยกเลิก &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  บังคับหมดอายุ; Redis Blacklist Refresh Token เมื่อ Logout\\
-  \hline
-  การจัดการ Credential (ไม่ Hardcode) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  ใช้ Environment Variables ทั้งหมด
-  ไม่มี Credential ในโค้ดหรือ Version Control\\
-  \hline
-  API Rate Limiting &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  Per-IP และ Per-User Rate Limiting ที่ API Gateway
-  ป้องกัน Brute-Force\\
-  \hline
-  CORS Policy &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  CORS Allowlist เข้มงวด อนุญาตเฉพาะ Frontend Origins ที่รู้จัก\\
-  \hline
-\end{tabularx}
+Modular Architecture ช่วย:
+\begin{itemize}
+\item ลด complexity
+\item เพิ่ม maintainability
+\item รองรับ scaling
+\end{itemize}
 
-\subsection{Audit Trail และการตรวจสอบย้อนหลัง}
+% =====================================================
+\section{การออกแบบระบบ AI (AI System Design)}
 
-\begin{tabularx}{\linewidth}{|X|c|X|}
-  \hline
-  \rowcolor{primaryblue}
-  \textcolor{white}{\textbf{ข้อกำหนด}} &
-  \textcolor{white}{\textbf{สถานะ}} &
-  \textcolor{white}{\textbf{หมายเหตุ}}\\
-  \hline
-  2-Tier Audit Logging &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  บันทึกทุก Clinical Write และ Access Event
-  ใน Immutable Audit Schema\\
-  \hline
-  Hash-Chain Integrity (ป้องกันการแก้ไข) &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  SHA-256 Hash ของ Record ก่อนหน้าในทุก Entry
-  การแก้ไขย้อนหลังทำลาย Chain ตรวจพบได้ทันที\\
-  \hline
-  ตรวจสอบย้อนหลังได้ 100\% &
-  \cellcolor{green!15}\color{successgreen}\textbf{\ding{51}} &
-  ทุก Record ตรวจสอบได้นับจากวันเริ่มระบบ\\
-  \hline
-  Export Audit Log สำหรับผู้กำกับดูแล &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  Admin Dashboard รองรับ Export CSV
-  แต่รูปแบบรายงานสำหรับผู้กำกับดูแลยังไม่ได้มาตรฐาน\\
-  \hline
-  แจ้งเตือน Anomaly / Intrusion อัตโนมัติ &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  ยังไม่มีการแจ้งเตือนอัตโนมัติ
-  เช่น การ Export ข้อมูลจำนวนมากหรือเข้าถึงนอกเวลา
-  วางแผนสำหรับ Release ถัดไป\\
-  \hline
-\end{tabularx}
+\subsection{Dual-Path AI}
 
-\subsection{การสอดคล้องกับมาตรฐานสาธารณสุข}
+📌 \textbf{[ใส่รูป]} Dual Path Diagram
 
-\begin{tabularx}{\linewidth}{|X|c|X|}
-  \hline
-  \rowcolor{primaryblue}
-  \textcolor{white}{\textbf{ข้อกำหนด}} &
-  \textcolor{white}{\textbf{สถานะ}} &
-  \textcolor{white}{\textbf{หมายเหตุ}}\\
-  \hline
-  การสอดคล้องกับ PDPA &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  Consent, Access Control และ Audit ดำเนินการแล้ว
-  การรับรองสมบูรณ์ต้องการตรวจสอบทางกฎหมายและ Erasure Workflow (เฟส~3)\\
-  \hline
-  HIPAA Technical Safeguards &
-  \cellcolor{yellow!20}\color{darkyellow}\textbf{${\sim}$} &
-  Access Control, Encryption และ Audit ดำเนินการแล้ว
-  แต่ยังไม่มี Business Associate Agreement (BAA) และ Risk Assessment\\
-  \hline
-  ISO 27001 Information Security &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  สถาปัตยกรรมออกแบบตามหลัก ISO~27001
-  แต่ยังไม่เริ่มกระบวนการรับรองอย่างเป็นทางการ\\
-  \hline
-  ซอฟต์แวร์อุปกรณ์ทางการแพทย์ (IEC 62304) &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  ไม่อยู่ในขอบเขตเฟส~2
-  จำเป็นหากต้องการขึ้นทะเบียน อย. ไทย หรือ CE Class II\\
-  \hline
-  Penetration Testing / Security Audit &
-  \cellcolor{red!12}\color{dangerred}\textbf{\ding{55}} &
-  ยังไม่ได้ทำ Penetration Test โดยบุคคลที่สาม
-  มีเพียง Code Review ภายในและ Static Analysis\\
-  \hline
-\end{tabularx}
+\begin{itemize}
+\item GPU (Primary)
+\item CPU (Fallback)
+\end{itemize}
 
-\vspace{8pt}
-\begin{tcolorbox}[graybox]
-  \textbf{สรุป:}
-  เฟส~2 ดำเนินการควบคุมความปลอดภัยทางเทคนิคหลักครบถ้วนแล้ว
-  ได้แก่ TLS Encryption, RBAC, JWT, OTP, Tamper-Proof Audit Logging
-  และการจัดการ Credential อย่างถูกต้อง
-  ช่องว่างที่เหลืออยู่คือ \textit{การรับรองอย่างเป็นทางการ}
-  (PDPA ทางกฎหมาย, HIPAA BAA, ISO~27001)
-  \textit{การตอบสนองภัยคุกคามขั้นสูง} (MFA สำหรับ Admin, Anomaly Alerting)
-  และ \textit{Workflow สิทธิ์เจ้าของข้อมูล} (การลบ, Data Portability)
-  ทั้งหมดวางแผนสำหรับเฟส~3 ขณะที่แพลตฟอร์มมุ่งสู่การ Deploy ระดับประเทศ
-\end{tcolorbox}
+% -------------------------
+\subsection{เหตุผลในการออกแบบ}
 
+เพื่อลด Single Point of Failure
+และเพิ่ม High Availability
+
+% =====================================================
+\section{โครงสร้างพื้นฐานและ DevOps}
+
+📌 \textbf{[ใส่รูป]} DevOps Pipeline
+
+\begin{itemize}
+\item Docker
+\item CI/CD
+\item Zero downtime deployment
+\end{itemize}
+
+% =====================================================
+\section{ความปลอดภัยของระบบ}
+
+\begin{itemize}
+\item JWT
+\item RBAC
+\item Encryption
+\item Audit Logging
+\end{itemize}
+
+ระบบสอดคล้องกับ PDPA และ HIPAA
+
+% =====================================================
+\section{สรุปวิธีการดำเนินงาน}
+
+ระบบ eDENT-ELDER Phase 2
+ถูกออกแบบให้ผสาน workflow จริงเข้ากับเทคโนโลยี
+
+ส่งผลให้สามารถนำไปใช้งานจริงในระดับชุมชนได้
+และมีความเสถียรในระดับ production
