@@ -18,15 +18,16 @@
 \XeTeXlinebreaklocale 'th_TH'
 \XeTeXlinebreakskip = 0pt plus 0.2pt minus 0.2pt
 
-\newfontfamily\thaifont[
-  Script=Thai,
-  Scale=MatchLowercase,
-  Extension=.otf,
-  ItalicFont=*-Italic,
-  BoldFont=*-Bold,
-  BoldItalicFont=*-BoldItalic,
-]{Laksaman}
-\IfFontExistsTF{Laksaman}{}{
+\IfFontExistsTF{Laksaman}{
+  \newfontfamily\thaifont[
+    Script=Thai,
+    Scale=MatchLowercase,
+    Extension=.otf,
+    ItalicFont=*-Italic,
+    BoldFont=*-Bold,
+    BoldItalicFont=*-BoldItalic,
+  ]{Laksaman}
+}{
   \IfFontExistsTF{Thonburi}{
     \newfontfamily\thaifont[
       Script=Thai,
@@ -38,15 +39,16 @@
     ]{Times New Roman}
   }
 }
-\newfontfamily\thaifontsf[
-  Script=Thai,
-  Scale=MatchLowercase,
-  Extension=.otf,
-  ItalicFont=*-Oblique,
-  BoldFont=*-Bold,
-  BoldItalicFont=*-BoldOblique,
-]{Garuda}
-\IfFontExistsTF{Garuda}{}{
+\IfFontExistsTF{Garuda}{
+  \newfontfamily\thaifontsf[
+    Script=Thai,
+    Scale=MatchLowercase,
+    Extension=.otf,
+    ItalicFont=*-Oblique,
+    BoldFont=*-Bold,
+    BoldItalicFont=*-BoldOblique,
+  ]{Garuda}
+}{
   \IfFontExistsTF{Thonburi}{
     \newfontfamily\thaifontsf[
       Script=Thai,
