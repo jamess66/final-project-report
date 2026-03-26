@@ -1,5 +1,14 @@
-\chapter{\ifenglish Testing and Quality Assurance\else การทดสอบและการรับรองคุณภาพ\fi}
+\chapter{\ifenglish Results and Discussion\else ผลการดำเนินงานและการอภิปรายผล\fi}
 
+\section{ภาพรวมผลการดำเนินงาน}
+
+จากการพัฒนาและทดสอบระบบ eDENT-ELDER Phase 2 พบว่าระบบสามารถทำงานได้ครบถ้วนตามวัตถุประสงค์ โดยรองรับกระบวนการคัดกรองแบบครบวงจร (end-to-end workflow) ตั้งแต่การเก็บข้อมูลผู้ป่วย การถ่ายภาพ การประเมินเบื้องต้น และการวิเคราะห์โดยผู้เชี่ยวชาญ
+
+ระบบสามารถรองรับการทำงานในระดับชุมชน โดยเฉพาะผ่านอาสาสมัครสาธารณสุข (อสม.) ซึ่งช่วยเพิ่มการเข้าถึงบริการและลดข้อจำกัดของระบบเดิม
+
+ในด้านเทคนิค ระบบแสดงให้เห็นถึงความสามารถในการทำงานแบบ real-time และมีความเสถียรสูงจากการออกแบบสถาปัตยกรรมแบบ Dual-Path และ Modular Architecture
+
+% =========================
 \section{การทดสอบและการรับรองคุณภาพทางวิศวกรรม}
 
 \subsection{กลยุทธ์และเครื่องมือทดสอบ}
@@ -18,88 +27,98 @@
   Vitest                & Test Runner สำหรับ Unit และ Integration Test ที่รวดเร็ว\\
   React Testing Library & ทดสอบ UI ระดับ Component\\
   jsdom                 & จำลองสภาพแวดล้อม Browser\\
-  Grafana            & จำลองภาระงานผู้ใช้เพื่อทดสอบ Load/Performance ของระบบ\\
-  Prometheus            & เก็บรวบรวม Metrics ของระบบระหว่างการทดสอบ เช่น CPU, Memory, Latency\\
+  Grafana               & จำลองภาระงานผู้ใช้เพื่อทดสอบ Load/Performance ของระบบ\\
+  Prometheus            & เก็บรวบรวม Metrics เช่น CPU, Memory, Latency\\
   \bottomrule
 \end{tabularx}
 
 \subsection{ผลการทดสอบ}
 
-%% >> แทนที่ด้วย: fig_test_results.png
-%% ที่มา: สไลด์ที่ 27
 \begin{figure}[H]
   \centering
-  \placeholder{fig\_test\_results.png}{รายงาน Coverage และ Vitest UI: 900 ผ่าน / 0 ล้มเหลว (สไลด์ 27)}
-  \caption{ผลการรับรองคุณภาพ: Coverage $\approx$75\% โดยรวม พร้อม 100\% บน Critical Module;
-    Vitest UI ยืนยัน 900 Test ผ่านภายใน $<$13\,s}
+   \includegraphics[width=\linewidth]{images/4.0.png}
+  \caption{ผลการรับรองคุณภาพ: Coverage $\approx$75\% และ 900 Test ผ่านทั้งหมด}
 \end{figure}
 
 \begin{tcolorbox}[greenbox]
   \renewcommand{\arraystretch}{1.4}
   \begin{tabularx}{\linewidth}{Xl}
-    \textbf{จำนวน Test ทั้งหมด}              & 900 (Unit + Integration)\\
-    \textbf{สถานะ} &
-      \textcolor{successgreen}{\textbf{ผ่าน 100\% --- ล้มเหลว 0 Test}}\\
-    \textbf{Code Coverage โดยรวม}            & $\approx$75\%\\
-    \textbf{Coverage บน Critical Business Logic} & \textbf{100\%}\\
-    \textbf{เวลาที่ใช้รัน}                  & $<13\,\text{s}$\\
+    \textbf{จำนวน Test ทั้งหมด} & 900 (Unit + Integration)\\
+    \textbf{สถานะ} & \textcolor{successgreen}{\textbf{ผ่าน 100\%}}\\
+    \textbf{Code Coverage} & $\approx$75\%\\
+    \textbf{Critical Logic} & \textbf{100\%}\\
+    \textbf{เวลาในการทดสอบ} & $<13\,\text{s}$\\
   \end{tabularx}
 \end{tcolorbox}
 
-\subsection{โปรไฟล์ภาระงานสังเคราะห์ (Synthetic Load Profile)}
+% =========================
+\subsection{โปรไฟล์ภาระงานสังเคราะห์ (Synthetic Load)}
 
-ผลการทดสอบภายใต้ภาระงานสังเคราะห์ (Synthetic Load) มีรายละเอียดดังนี้
-\begin{tcolorbox}[bluebox,title={สรุปผล Synthetic Load Profile}]
+\begin{tcolorbox}[bluebox,title={สรุปผล Synthetic Load}]
   \renewcommand{\arraystretch}{1.35}
   \begin{tabularx}{\linewidth}{Xl}
-    \textbf{ระยะเวลา}       & 1 ชั่วโมง\\
-    \textbf{จำนวน Request ทั้งหมด} & 7,632\\
-    \textbf{ค่าเฉลี่ย RPS}        & 2.12\\
-    \textbf{อัตรา Request สำเร็จ} & 99.46\%\\
+    \textbf{ระยะเวลา} & 1 ชั่วโมง\\
+    \textbf{จำนวน Request} & 7,632\\
+    \textbf{ค่าเฉลี่ย RPS} & 2.12\\
+    \textbf{Success Rate} & 99.46\%\\
   \end{tabularx}
 \end{tcolorbox}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.1.png}
-  \caption{Synthetic Load Profile: ค่าเฉลี่ย Request Duration (milliseconds)}
+  \caption{Request Duration}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.2.png}
-  \caption{Synthetic Load Profile: อัตรา Failed Inference Request}
+  \caption{Failed Requests}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.3.png}
-  \caption{Synthetic Load Profile: ระยะเวลารอใน Queue (milliseconds)}
+  \caption{Queue Time}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.4.png}
-  \caption{Synthetic Load Profile: ระยะเวลา Compute ใน Inference (milliseconds)}
+  \caption{Compute Time}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/4.5.png}
-  \caption{Synthetic Load Profile: ความเร็ว AI Inference (Latency - ms)}
+  \caption{AI Inference Latency}
 \end{figure}
 
-\subsection{โมดูลหลักที่ผ่านการตรวจสอบ}
+% =========================
+\subsection{การวิเคราะห์ผลการทดสอบ}
 
-\begin{itemize}[leftmargin=1.8em, itemsep=3pt]
-  \item \textbf{Auth} --- การยืนยันตัวตนและการควบคุมสิทธิ์ตามบทบาท
-  \item \textbf{Clinical} --- Logic แบบสอบถาม OHIP, OHAT และการคำนวณคะแนนวินิจฉัย
-  \item \textbf{Upload} --- Pipeline อัปโหลดไฟล์ปลอดภัยพร้อม Quality-Gate Validation
-\end{itemize}
+จากผลการทดสอบ พบว่าระบบมีอัตราความสำเร็จสูงถึง 99.46\% ซึ่งสะท้อนถึงความเสถียรของระบบภายใต้ภาระงานต่อเนื่อง
 
-\section{Feedback จากการพัฒนา}
+แม้ค่า RPS จะไม่สูงมาก แต่สอดคล้องกับลักษณะการใช้งานจริงในระดับชุมชน ซึ่งไม่ได้มีการใช้งานแบบหนาแน่นเหมือนระบบขนาดใหญ่
 
-กระบวนการพัฒนาได้รับ Feedback โดยตรงจากผู้เชี่ยวชาญที่มีประสบการณ์จริง
-ในการพัฒนาแพลตฟอร์ม Web ทางคลินิกทันตกรรม
-ข้อมูลนี้ชี้นำการออกแบบ Interface, Clinical Workflow Integration
-และ Logic ของแบบสอบถาม เพื่อให้แพลตฟอร์มสะท้อนความต้องการในการปฏิบัติงานจริง
+นอกจากนี้ ค่า latency และ queue time ที่ต่ำ แสดงให้เห็นว่าระบบสามารถจัดการคำขอได้อย่างมีประสิทธิภาพ และไม่เกิด bottleneck ใน pipeline
+
+% =========================
+\section{การอภิปรายผล}
+
+จากผลการทดสอบ พบว่าความสำเร็จของระบบไม่ได้ขึ้นอยู่กับ AI เพียงอย่างเดียว แต่เกิดจากการออกแบบระบบโดยรวม ทั้งในด้านสถาปัตยกรรม workflow และ usability
+
+การใช้ Modular Architecture และ Dual-Path AI ช่วยเพิ่มความเสถียรและลดความเสี่ยงจากการล่มของระบบ ซึ่งเป็นปัจจัยสำคัญในระบบทางการแพทย์
+
+นอกจากนี้ การออกแบบ workflow ให้สอดคล้องกับการทำงานจริงของบุคลากร เช่น อสม. และทันตแพทย์ มีบทบาทสำคัญในการทำให้ระบบสามารถใช้งานจริงได้
+
+อย่างไรก็ตาม ยังมีข้อจำกัด เช่น การพึ่งพา AI จากภายนอก และการทดสอบที่ยังอยู่ในระดับนำร่อง
+
+% =========================
+\section{สรุปผลการดำเนินงาน}
+
+ระบบ eDENT-ELDER Phase 2 สามารถทำงานได้ครบถ้วนตามวัตถุประสงค์ และมีศักยภาพในการนำไปใช้งานจริง
+
+ระบบสามารถเพิ่มการเข้าถึงบริการ ลดภาระของบุคลากร และเพิ่มประสิทธิภาพในการตรวจพบโรคในระยะเริ่มต้น
+
+ผลการทดสอบทั้งด้าน functional และ performance ยืนยันถึงความพร้อมของระบบในระดับ production
