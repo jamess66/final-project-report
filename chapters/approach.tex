@@ -30,7 +30,7 @@
 และยังไม่มีความเสถียรเพียงพอสำหรับการใช้งานในระดับบริการ
 
 ดังนั้น โครงงานนี้จึงมุ่งเน้นการออกแบบระบบแบบ end-to-end
-ที่สามารถผสาน Mobile Health, AI และ Telemedicine
+ที่ผสาน Mobile Health, AI และ Telemedicine
 เข้ากับการทำงานของบุคลากรสาธารณสุขได้อย่างมีประสิทธิภาพ
 
 ระบบรองรับผู้ใช้งานหลายบทบาท ได้แก่
@@ -43,7 +43,8 @@
 
 \begin{tcolorbox}[bluebox]
 \textbf{Oral Health Assessment Tool (OHAT)}  
-ใช้ประเมินความเสี่ยงของสภาพช่องปากเบื้องต้นช่วยประเมินช่องปากว่าควรส่งภาพให้ AI วิเคราะห์หรือไม่
+ใช้ประเมินความเสี่ยงของสุขภาพช่องปากเบื้องต้น
+เพื่อพิจารณาว่าควรส่งภาพให้ AI วิเคราะห์หรือไม่
 
 \textbf{Oral Health Impact Profile (OHIP)}  
 ใช้ประเมินผลกระทบของสุขภาพช่องปากต่อคุณภาพชีวิต
@@ -86,7 +87,7 @@
 \subsection{เหตุผลในการออกแบบ Workflow}
 
 การออกแบบ workflow แบบ multi-role
-ช่วยให้ระบบสอดคล้องกับกระบวนการทำงานจริงของระบบสาธารณสุข
+ช่วยให้ระบบสอดคล้องกับกระบวนการทำงานจริงของภาคบริการสาธารณสุข
 
 การใช้ asynchronous teleconsultation
 ช่วยลดข้อจำกัดด้านเวลาและสถานที่ พร้อมเพิ่มความสามารถในการขยายบริการ
@@ -104,15 +105,15 @@
 \end{figure}
 
 ระบบใช้แนวคิด Layered Architecture ร่วมกับ Domain-Driven Design (DDD)
-ภายใต้รูปแบบ Modular Monolith architecture เพื่อแยก business logic ออกจาก infrastructure
+ภายใต้รูปแบบ Modular Monolith Architecture เพื่อแยก business logic ออกจาก infrastructure
 และลดความซับซ้อนในการดูแลระบบในระยะพัฒนา
 
 แนวทาง Layered Architecture และ DDD
-ช่วยให้ระบบสามารถแยก business logic ออกจากส่วน infrastructure ได้อย่างชัดเจน
+ช่วยให้ระบบแยก business logic ออกจากส่วน infrastructure ได้อย่างชัดเจน
 ซึ่งมีความสำคัญในระบบทางการแพทย์ที่ต้องมีการปรับปรุงและขยายระบบอย่างต่อเนื่อง
 
 นอกจากนี้ยังช่วยลดผลกระทบเมื่อมีการเปลี่ยนแปลงในส่วนใดส่วนหนึ่งของระบบ
-เช่น การเปลี่ยน AI model หรือ storage backend
+เช่น การเปลี่ยนโมเดล AI หรือระบบจัดเก็บข้อมูล
 
 % -------------------------
 \subsection{Technology Stack}
@@ -203,7 +204,7 @@ Cache/Queue & Redis + Celery \\
 \begin{itemize}
 \item Docker
 \item CI/CD
-\item Zero downtime deployment
+\item Zero-downtime deployment
 \end{itemize}
 
 แนวทางดังกล่าวช่วยให้การปรับปรุงระบบทำได้ต่อเนื่อง
@@ -219,7 +220,7 @@ Cache/Queue & Redis + Celery \\
 \item Audit Logging
 \end{itemize}
 
-ระบบสอดคล้องกับ PDPA และ HIPAA
+ระบบสอดคล้องกับข้อกำหนดด้านความมั่นคงปลอดภัยข้อมูลตาม PDPA และ HIPAA
 
 % =====================================================
 \section{การทดสอบและประเมินผลระบบ (Testing and Evaluation)}
@@ -254,7 +255,7 @@ Cache/Queue & Redis + Celery \\
 \section{สรุปวิธีการดำเนินงาน}
 
 ระบบ eDENT-ELDER Phase 2
-ถูกออกแบบให้ผสาน workflow จริงเข้ากับเทคโนโลยี
+ถูกออกแบบให้ผสาน workflow การทำงานจริงเข้ากับเทคโนโลยีอย่างเป็นระบบ
 
 ส่งผลให้สามารถนำไปใช้งานจริงในระดับชุมชนได้
 และมีความเสถียรในระดับบริการ
