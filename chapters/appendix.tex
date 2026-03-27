@@ -521,14 +521,152 @@ GET       /api/v1/health/startup
 \end{verbatim}
 
 % ─────────────────────────────────────────────
-\subsection*{Response Example}
+\subsection*{Response Examples }
+
+\paragraph*{1) OTP Challenge Response (POST /api/v1/auth/otp/send)}
 \begin{verbatim}
 {
-  "access_token": "eyJ...",
+  "challenge_id": "7de6f0b7-f8f8-4f6e-a2a8-0e703e1ec4c2",
+  "expires_at": "2026-03-27T10:35:00Z",
+  "refno": "EDNT-924771",
+  "next_resend": 60
+}
+\end{verbatim}
+
+\paragraph*{2) OTP Verify Temp Token (POST /api/v1/auth/otp/verify)}
+\begin{verbatim}
+{
+  "account_id": "acc_01JQW7F9M5Z5X1R2",
+  "phone_e164": "+66812345678",
+  "available_roles": ["PATIENT", "VHV"],
+  "temporary_access_token": "eyJhbGciOi...",
+  "token_type": "Bearer",
+  "expires_in": 300
+}
+\end{verbatim}
+
+\paragraph*{3) Full Login Session (POST /api/v1/auth/login-role)}
+\begin{verbatim}
+{
+  "account_id": "acc_01JQW7F9M5Z5X1R2",
   "active_role": "PATIENT",
-  "roles": ["PATIENT"],
+  "roles": ["PATIENT", "VHV"],
   "account_status": "ACTIVE",
-  "expires_in": 3600
+  "first_name": "Somchai",
+  "last_name": "Jaidee",
+  "username": null,
+  "access_token": "eyJhbGciOi...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "patient_id": "pat_01JQW7K2R7H9Y4A1"
+}
+\end{verbatim}
+
+\paragraph*{4) Patient Profile (GET /api/v1/patients/me)}
+\begin{verbatim}
+{
+  "patient_id": "pat_01JQW7K2R7H9Y4A1",
+  "account_id": "acc_01JQW7F9M5Z5X1R2",
+  "account_status": "ACTIVE",
+  "first_name": "Somchai",
+  "last_name": "Jaidee",
+  "email": "somchai@example.com",
+  "date_of_birth": "1956-02-11",
+  "gender": "MALE",
+  "occupation": "Farmer",
+  "education_level": "PRIMARY",
+  "address_text": "120 Moo 5",
+  "language": "TH",
+  "extra": {"caregiver_phone": "+66818888888"}
+}
+\end{verbatim}
+
+\paragraph*{5) Cases List (GET /api/v1/cases)}
+\begin{verbatim}
+{
+  "items": [
+    {
+      "case_id": "case_01JQW9T6Q8PA8Z1V",
+      "status": "OPEN",
+      "followup_status": "REQUESTED",
+      "retrain_status": "NO_REQUEST",
+      "ai_review_status": "UNCERTAIN",
+      "special_request": false,
+      "created_at": "2026-03-26T14:11:22Z"
+    }
+  ],
+  "limit": 50,
+  "offset": 0,
+  "total": 1
+}
+\end{verbatim}
+
+\paragraph*{6) Questionnaire Score Result (POST /api/v1/questionnaires/score/ohat)}
+\begin{verbatim}
+{
+  "template_id": "tmpl-ohat-001",
+  "score_total": 7,
+  "risk_level": "MODERATE",
+  "interpretation_th": "สุขภาพช่องปากปานกลาง",
+  "color": "yellow"
+}
+\end{verbatim}
+
+\paragraph*{7) Consent List (GET /api/v1/consents/pending)}
+\begin{verbatim}
+[
+  {
+    "id": "cons_01JQWB7M1Q2YJ9XB",
+    "code": "PRIVACY_NOTICE",
+    "type": "PRIVACY",
+    "title": "Privacy Notice",
+    "content": "รายละเอียดนโยบายความเป็นส่วนตัว...",
+    "version": 3,
+    "role": "PATIENT",
+    "required": true,
+    "enabled": true,
+    "content_hash": "sha256:8a1f..."
+  }
+]
+\end{verbatim}
+
+\paragraph*{8) Audit KPI (GET /api/v1/admin/audit/kpis)}
+\begin{verbatim}
+{
+  "total_events": 1325,
+  "high_risk_actions": 29,
+  "active_users": 164,
+  "failed_logins": 11
+}
+\end{verbatim}
+
+\paragraph*{9) Validation Error (422)}
+\begin{verbatim}
+{
+  "detail": [
+    {
+      "loc": ["body", "otp_code"],
+      "msg": "String should have at least 6 characters",
+      "type": "string_too_short"
+    }
+  ]
+}
+\end{verbatim}
+
+\paragraph*{10) Typical Auth Error (401 / 403)}
+\begin{verbatim}
+{
+  "code": "UNAUTHORIZED",
+  "message": "Invalid or expired access token"
+}
+\end{verbatim}
+
+\paragraph*{11) Not Found Error (404)}
+\begin{verbatim}
+{
+  "code": "NOT_FOUND",
+  "message": "Case not found",
+  "resource_id": "case_01JQW9T6Q8PA8Z1V"
 }
 \end{verbatim}
 % =====================================================
