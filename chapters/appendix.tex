@@ -19,7 +19,7 @@
 
 \begin{figure}[H]
     \centering
-  \includegraphics[width=0.95\textwidth,height=0.78\textheight,keepaspectratio]{fig/appendix/k123/k1-overall-workflow.jpg}
+  \includegraphics[width=0.95\textwidth,height=0.78\textheight,keepaspectratio]{fig/appendix/k123456/k1-overall-workflow.jpg}
     \caption{การทำงานของระบบแบบครบวงจรสำหรับบทบาทผู้ใช้งานหลัก ได้แก่ Patient/VHV, Screener และ Specialist/Admin}
     \label{fig:appendix-e2e-role-workflow}
 \end{figure}
@@ -213,14 +213,14 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-role-login-otp.jpg}
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-role-login-otp.jpg}
     \caption{ตัวอย่างการเลือกบทบาทผู้ใช้งานและการยืนยันตัวตนด้วย OTP สำหรับบทบาทประชาชนและ อสม.}
     \label{fig:appendix-role-assignment-login}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-register-consent.jpg}
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-register-consent.jpg}
     \caption{ตัวอย่างหน้าจอลงทะเบียนข้อมูลผู้ใช้งานและหน้าต่างการขอความยินยอมในการใช้ข้อมูล (Consent)}
     \label{fig:appendix-role-assignment-register-consent}
 \end{figure}
@@ -240,41 +240,56 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k3-patient-flow.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k3-patient-flow.jpg}
   \caption{ลำดับการทำงานของผู้ป่วย (Patient) ตั้งแต่เข้าสู่ระบบ เลือกวิธีถ่ายภาพ ประเมิน OHIP และรับผลเบื้องต้น}
   \label{fig:appendix-patient-workflow}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k3-vhv-flow.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k3-vhv-flow.jpg}
   \caption{ลำดับการทำงานของ อสม. (VHV) ตั้งแต่ยืนยันบทบาท ค้นหาผู้ป่วย กรอกข้อมูล และถ่ายภาพตามตำแหน่งมาตรฐาน}
   \label{fig:appendix-vhv-workflow}
 \end{figure}
 
-% =====================================================
-\section{\ifenglish AI Processing and Results\else การประมวลผล AI และผลลัพธ์\fi}
-
-\noindent ส่วนนี้แสดงตัวอย่างข้อมูลนำเข้าที่ได้จากกระบวนการใช้งานจริง และผลลัพธ์จากโมเดล AI ในการประเมินความเสี่ยง ซึ่งประกอบด้วยคะแนนรวม ช่วงคะแนน และข้อเสนอแนะเบื้องต้นเพื่อสนับสนุนการตัดสินใจของบุคลากรทางการแพทย์
-
-\begin{itemize}
-  \item ภาพ input จริง
-  \item ผล AI (classification / detection)
-  \item confidence score
-\end{itemize}
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-patient-ohip-ai.jpg}
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-patient-ohip-ai.jpg}
     \caption{ตัวอย่างการประมวลผลสำหรับผู้ป่วยทั่วไป: การทำแบบประเมิน OHIP และผลประเมินที่เชื่อมโยงกับผลวิเคราะห์ภาพจาก AI}
     \label{fig:appendix-ai-patient-ohip}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-vhv-ohat-ai.jpg}
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-vhv-ohat-ai.jpg}
     \caption{ตัวอย่างการประมวลผลสำหรับ อสม.: การทำแบบประเมิน OHAT ควบคู่กับผลวิเคราะห์ภาพจาก AI เพื่อจัดลำดับความเสี่ยงเบื้องต้น}
     \label{fig:appendix-ai-vhv-ohat}
+\end{figure}
+
+% =====================================================
+\section{\ifenglish OHIP and OHAT Dashboard\else แดชบอร์ดแบบประเมิน OHIP และ OHAT\fi}
+
+\noindent หัวข้อนี้แสดงผลการติดตามข้อมูลแบบประเมิน OHIP และ OHAT ในระดับแดชบอร์ด เพื่อสนับสนุนการวิเคราะห์ภาพรวมของโครงการ ทั้งด้านจำนวนแบบประเมิน ตัวชี้วัดสำคัญ การกระจายเชิงพื้นที่ และข้อมูลรายกรณี
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k4-screener-ohip-ohat-records.jpg}
+  \caption{หน้าจอติดตามผลแบบประเมิน OHIP และ OHAT สำหรับงานคัดกรอง โดยแสดงสถิติภาพรวมและรายการข้อมูลสำหรับวิเคราะห์เชิงปฏิบัติการ}
+  \label{fig:appendix-k4-screener-ohip-ohat}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k4-admin-ohip-dashboard-map.jpg}
+  \caption{แดชบอร์ดผู้ดูแลระบบสำหรับแบบประเมิน OHIP พร้อมแผนที่ความเสี่ยงเชิงพื้นที่ระดับจังหวัด}
+  \label{fig:appendix-k4-admin-ohip}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k4-admin-ohat-dashboard-map.jpg}
+  \caption{แดชบอร์ดผู้ดูแลระบบสำหรับแบบประเมิน OHAT พร้อมแผนที่ความเสี่ยงและตารางรายการเคสเพื่อสนับสนุนการติดตามผล}
+  \label{fig:appendix-k4-admin-ohat}
 \end{figure}
 
 % =====================================================
@@ -290,14 +305,14 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-screener-dashboard.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-screener-dashboard.jpg}
   \caption{หน้าจอการทำงานของผู้คัดกรอง (Screener) สำหรับติดตามรายการเคส คัดกรองตามเงื่อนไข และพิจารณารายละเอียดแต่ละเคส}
   \label{fig:appendix-screener-workflow}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k5-screener-case-review.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k5-screener-case-review.jpg}
   \caption{ตัวอย่างหน้ารายการเคสและหน้าตรวจสอบรายละเอียดเคสของผู้คัดกรอง (Screener)}
   \label{fig:appendix-screener-k5}
 \end{figure}
@@ -316,14 +331,14 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-specialist-dashboard.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k2-specialist-dashboard.jpg}
   \caption{หน้าจอการทำงานของผู้เชี่ยวชาญ (Specialist) สำหรับรับเคสส่งต่อ ประเมินผล และบันทึกการวินิจฉัย}
   \label{fig:appendix-specialist-workflow}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k6-specialist-ai-assist.jpg}
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123456/k6-specialist-ai-assist.jpg}
   \caption{ตัวอย่างการใช้งานข้อมูลช่วยตัดสินใจจาก AI ในหน้ารายละเอียดเคสของผู้เชี่ยวชาญ}
   \label{fig:appendix-specialist-k6}
 \end{figure}
