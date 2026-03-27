@@ -346,24 +346,191 @@
 % =====================================================
 \section{\ifenglish API and Data Exchange\else การสื่อสารข้อมูลและ API\fi}
 
+% ─────────────────────────────────────────────
 \subsection*{Authentication API}
 \begin{verbatim}
-POST /api/auth/otp
+POST /api/v1/auth/otp/send
+POST /api/v1/auth/otp/verify
+POST /api/v1/auth/otp/resend
+
+POST /api/v1/auth/patient-vhv/login
+POST /api/v1/auth/patient-vhv/verify
+POST /api/v1/auth/patient-vhv/role-login
+
+POST /api/v1/auth/officer/login
+POST /api/v1/auth/officer/verify
+POST /api/v1/auth/officer/role-login
+POST /api/v1/auth/officer/register
+POST /api/v1/auth/officer/register/dentist
+
+POST /api/v1/auth/admin/login
+POST /api/v1/auth/login-role
+
+POST /api/v1/auth/register/patient
+POST /api/v1/auth/register/vhv
+POST /api/v1/auth/register/verify
+POST /api/v1/auth/register/resend
+
+GET  /api/v1/auth/register-info
+POST /api/v1/auth/logout
+POST /api/v1/auth/refresh
+POST /api/v1/auth/revoke
 \end{verbatim}
 
-\subsection*{Inference API}
+% ─────────────────────────────────────────────
+\subsection*{User / Patient / VHV / Dentist API}
 \begin{verbatim}
-POST /api/inference
+GET       /api/v1/health
+GET       /api/v1/orgs/provinces
+GET       /api/v1/orgs/vhv-teams
+GET       /api/v1/users/specialists
+
+GET       /api/v1/patients/me
+PATCH     /api/v1/patients/me
+POST      /api/v1/patients/create-minimal
+POST      /api/v1/patients/select
+POST      /api/v1/patients/find-by-national-id
+POST      /api/v1/patients/create-from-riskoca
+
+GET       /api/v1/vhv/me
+PATCH     /api/v1/vhv/me
+
+GET       /api/v1/dentist/me
+PATCH     /api/v1/dentist/me
 \end{verbatim}
 
+% ─────────────────────────────────────────────
+\subsection*{Admin API}
+\begin{verbatim}
+GET       /api/v1/admin/users
+GET       /api/v1/admin/users/{account_id}
+PATCH     /api/v1/admin/users/{account_id}
+
+GET       /api/v1/admin/riskoca/questionaire
+
+GET       /api/v1/admin/audit/kpis
+GET       /api/v1/admin/audit/timeline
+GET       /api/v1/admin/audit/severity
+GET       /api/v1/admin/audit/top-actions
+GET       /api/v1/admin/audit/logs
+GET       /api/v1/admin/audit/export
+GET       /api/v1/admin/audit/chain-integrity
+GET       /api/v1/admin/audit/failed-logins
+GET       /api/v1/admin/audit/role-changes
+GET       /api/v1/admin/audit/suspicious-ips
+GET       /api/v1/admin/audit/user-activity
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Cases \& Submissions API}
+\begin{verbatim}
+GET       /api/v1/cases
+GET       /api/v1/cases/{case_id}
+GET       /api/v1/dentist/cases
+GET       /api/v1/dentist/cases/{case_id}
+
+PATCH     /api/v1/cases/{case_id}/followup-status
+PATCH     /api/v1/cases/{case_id}/retrain-status
+PATCH     /api/v1/cases/{case_id}/ai-review-status
+PATCH     /api/v1/cases/{case_id}/special-request
+PATCH     /api/v1/cases/{case_id}/diagnosis
+PATCH     /api/v1/cases/{case_id}/case-report
+PATCH     /api/v1/cases/{case_id}/documents-comment
+POST      /api/v1/cases/{case_id}/related-documents
+GET       /api/v1/cases/{case_id}/related-documents
+
+POST      /api/v1/submissions
+POST      /api/v1/submission/multipart
+GET       /api/v1/submissions/my
+GET       /api/v1/submissions/officer/all
+GET       /api/v1/submissions/{submission_id}
+GET       /api/v1/dentist/submissions/{submission_id}
+POST      /api/v1/inference/{submission_id}/
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Images \& AI Prediction API}
+\begin{verbatim}
+GET       /api/v1/images/{image_id}
+POST      /api/v1/images/{image_id}/predict
+GET       /api/v1/images/{image_id}/prediction
+POST      /api/v1/images/quality/check
+GET       /api/v1/images/quality/check/{process_id}
+GET       /api/v1/images/quality/batch/{batch_id}
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Questionnaires API}
+\begin{verbatim}
+GET       /api/v1/questionnaires/templates/{template_id}
+GET       /api/v1/questionnaires/responses
+POST      /api/v1/questionnaires/responses
+GET       /api/v1/questionnaires/responses/{response_id}/with-answers
+GET       /api/v1/questionnaires/assigned
+GET       /api/v1/questionnaires/unanswered
+POST      /api/v1/questionnaires/score/ohat
+POST      /api/v1/questionnaires/score/ohip
+GET       /api/v1/questionnaires/dashboard/scores
+GET       /api/v1/questionnaires/vhv/patient/{national_id}/ohat-status
+GET       /api/v1/questionnaires/vhv/patient/{national_id}/ohip-status
+POST      /api/v1/questionnaires/vhv/patient/submit
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Consents API}
+\begin{verbatim}
+GET       /api/v1/consents/all
+GET       /api/v1/consents/pending
+GET       /api/v1/consents/pending/registration
+GET       /api/v1/consents/required
+GET       /api/v1/consents/history
+GET       /api/v1/consents/{consent_id}
+POST      /api/v1/consents/create-consent
+POST      /api/v1/consents/update-consent
+PUT       /api/v1/consents/update-enable-consent
+DELETE    /api/v1/consents/delete-consent
+POST      /api/v1/consents/accept
+POST      /api/v1/consents/withdraw
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Roles \& RiskOCA API}
+\begin{verbatim}
+GET       /api/v1/roles/enabled
+GET       /api/v1/roles
+POST      /api/v1/roles
+GET       /api/v1/roles/{role_id}
+PUT       /api/v1/roles/{role_id}
+DELETE    /api/v1/roles/{role_id}
+
+GET       /api/v1/riskoca/questionaire
+\end{verbatim}
+
+% ─────────────────────────────────────────────
+\subsection*{Notifications, Webhook \& Health API}
+\begin{verbatim}
+POST      /api/v1/notification/send-message
+POST      /api/v1/notification/send-accountId-message/
+POST      /api/v1/notification/push-notification-case/
+
+POST      /api/v1/webhook
+
+GET       /api/v1/health/live
+GET       /api/v1/health/ready
+GET       /api/v1/health/startup
+\end{verbatim}
+
+% ─────────────────────────────────────────────
 \subsection*{Response Example}
 \begin{verbatim}
 {
-  "risk": "high",
-  "confidence": 0.91
+  "access_token": "eyJ...",
+  "active_role": "PATIENT",
+  "roles": ["PATIENT"],
+  "account_status": "ACTIVE",
+  "expires_in": 3600
 }
 \end{verbatim}
-
 % =====================================================
 \section{\ifenglish Database Structure\else โครงสร้างฐานข้อมูล\fi}
 
@@ -373,13 +540,13 @@ POST /api/inference
   \item AI result table
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{fig/er/er-oltp.png}
   \caption{ER Diagram: OLTP Database}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{fig/er/er-audit.png}
   \caption{ER Diagram: Audit Database}
@@ -423,26 +590,3 @@ POST /api/inference
 \end{figure}
 
 % =====================================================
-\section{\ifenglish System Manual\else คู่มือการใช้งานระบบ\fi}
-
-\subsection*{Patient / VHV}
-\begin{enumerate}
-\item Login
-\item กรอกข้อมูล
-\item ถ่ายภาพ
-\item รับผล
-\end{enumerate}
-
-\subsection*{Screener}
-\begin{enumerate}
-\item ตรวจเคส
-\item วิเคราะห์
-\item ส่งต่อ
-\end{enumerate}
-
-\subsection*{Specialist}
-\begin{enumerate}
-\item รับเคส
-\item วินิจฉัย
-\item ปิดเคส
-\end{enumerate}
