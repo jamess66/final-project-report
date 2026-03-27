@@ -3,14 +3,26 @@
 % =====================================================
 \section{\ifenglish End-to-End System Execution\else การทำงานของระบบแบบครบวงจร (Real Execution)\fi}
 
-แสดงการทำงานจริงของระบบตั้งแต่ต้นจนจบ
+หัวข้อนี้แสดงลำดับการทำงานของระบบตั้งแต่เริ่มเข้าสู่ระบบ การตรวจสอบสิทธิ์และความยินยอม การประเมินความเสี่ยงด้วยแบบประเมินและภาพถ่ายช่องปาก ไปจนถึงกระบวนการคัดกรองและวินิจฉัยโดยผู้เชี่ยวชาญ
 
 \begin{itemize}
-  \item Login → Register → Consent → Workflow → Diagnosis
+  \item Login -> Register -> Consent -> Workflow -> Diagnosis
   \item การไหลของข้อมูลจริงในระบบ
 \end{itemize}
 
-📌 \textbf{[ใส่รูป]} Full real workflow (step-by-step screenshots)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig/appendix/1.png}
+    \caption{ภาพรวมลำดับขั้นการทำงานของระบบตั้งแต่การยืนยันตัวตน การลงทะเบียนและยินยอมข้อมูล จนถึงการเข้าสู่กระบวนการใช้งานตามบทบาท}
+    \label{fig:appendix-e2e-auth-consent-flow}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+  \includegraphics[width=0.95\textwidth,height=0.78\textheight,keepaspectratio]{fig/appendix/k123/k1-overall-workflow.jpg}
+    \caption{การทำงานของระบบแบบครบวงจรสำหรับบทบาทผู้ใช้งานหลัก ได้แก่ Patient/VHV, Screener และ Specialist/Admin}
+    \label{fig:appendix-e2e-role-workflow}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish Authentication and User Management\else ระบบยืนยันตัวตนและจัดการผู้ใช้งาน\fi}
@@ -197,10 +209,26 @@
   \item Specialist
 \end{itemize}
 
-📌 \textbf{[ใส่รูป]} Role selection / dashboard แตกต่างกัน
+\noindent ระบบสนับสนุนการกำหนดบทบาทผู้ใช้งานตั้งแต่ขั้นตอนเริ่มต้น โดยหน้าจอและสิทธิ์การเข้าถึงจะเปลี่ยนตามบทบาทที่เลือก เพื่อให้สอดคล้องกับภารกิจของแต่ละกลุ่มผู้ใช้งาน
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-role-login-otp.jpg}
+    \caption{ตัวอย่างการเลือกบทบาทผู้ใช้งานและการยืนยันตัวตนด้วย OTP สำหรับบทบาทประชาชนและ อสม.}
+    \label{fig:appendix-role-assignment-login}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-register-consent.jpg}
+    \caption{ตัวอย่างหน้าจอลงทะเบียนข้อมูลผู้ใช้งานและหน้าต่างการขอความยินยอมในการใช้ข้อมูล (Consent)}
+    \label{fig:appendix-role-assignment-register-consent}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish Patient and VHV Workflow\else การใช้งานของผู้ป่วยและ อสม.\fi}
+
+\noindent กระบวนการทำงานของผู้ป่วยและ อสม. ในภาคสนามเริ่มจากการระบุตัวผู้ป่วยและข้อมูลประกอบ จากนั้นเข้าสู่ขั้นตอนประเมินสุขภาพช่องปากตามแบบประเมินที่ระบบกำหนด และปิดท้ายด้วยการบันทึกภาพตำแหน่งช่องปากเพื่อส่งต่อเข้าสู่ระบบวิเคราะห์
 
 \begin{enumerate}
 \item เลือกผู้ป่วย
@@ -210,10 +238,24 @@
 \item ส่งข้อมูลเข้า AI
 \end{enumerate}
 
-📌 \textbf{[ใส่รูป]} ทุก step แบบ sequence
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k3-patient-flow.jpg}
+  \caption{ลำดับการทำงานของผู้ป่วย (Patient) ตั้งแต่เข้าสู่ระบบ เลือกวิธีถ่ายภาพ ประเมิน OHIP และรับผลเบื้องต้น}
+  \label{fig:appendix-patient-workflow}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k3-vhv-flow.jpg}
+  \caption{ลำดับการทำงานของ อสม. (VHV) ตั้งแต่ยืนยันบทบาท ค้นหาผู้ป่วย กรอกข้อมูล และถ่ายภาพตามตำแหน่งมาตรฐาน}
+  \label{fig:appendix-vhv-workflow}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish AI Processing and Results\else การประมวลผล AI และผลลัพธ์\fi}
+
+\noindent ส่วนนี้แสดงตัวอย่างข้อมูลนำเข้าที่ได้จากกระบวนการใช้งานจริง และผลลัพธ์จากโมเดล AI ในการประเมินความเสี่ยง ซึ่งประกอบด้วยคะแนนรวม ช่วงคะแนน และข้อเสนอแนะเบื้องต้นเพื่อสนับสนุนการตัดสินใจของบุคลากรทางการแพทย์
 
 \begin{itemize}
   \item ภาพ input จริง
@@ -221,10 +263,24 @@
   \item confidence score
 \end{itemize}
 
-📌 \textbf{[ใส่รูป]} Before / After AI
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-patient-ohip-ai.jpg}
+    \caption{ตัวอย่างการประมวลผลสำหรับผู้ป่วยทั่วไป: การทำแบบประเมิน OHIP และผลประเมินที่เชื่อมโยงกับผลวิเคราะห์ภาพจาก AI}
+    \label{fig:appendix-ai-patient-ohip}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-vhv-ohat-ai.jpg}
+    \caption{ตัวอย่างการประมวลผลสำหรับ อสม.: การทำแบบประเมิน OHAT ควบคู่กับผลวิเคราะห์ภาพจาก AI เพื่อจัดลำดับความเสี่ยงเบื้องต้น}
+    \label{fig:appendix-ai-vhv-ohat}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish Screener Workflow\else การทำงานของผู้คัดกรอง\fi}
+
+\noindent ผู้คัดกรองทำหน้าที่ตรวจสอบเคสจากผลวิเคราะห์เบื้องต้นของระบบ AI พิจารณาภาพและข้อมูลประกอบรายกรณี พร้อมกำหนดการดำเนินการต่อ เช่น ส่งต่อผู้เชี่ยวชาญหรือขอข้อมูลเพิ่มเติม
 
 \begin{enumerate}
 \item ดูรายการเคส
@@ -232,10 +288,17 @@
 \item ตัดสินใจส่งต่อ
 \end{enumerate}
 
-📌 \textbf{[ใส่รูป]} Screener dashboard + case detail
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-screener-dashboard.jpg}
+  \caption{หน้าจอการทำงานของผู้คัดกรอง (Screener) สำหรับติดตามรายการเคส คัดกรองตามเงื่อนไข และพิจารณารายละเอียดแต่ละเคส}
+  \label{fig:appendix-screener-workflow}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish Specialist Workflow\else การทำงานของผู้เชี่ยวชาญ\fi}
+
+\noindent เมื่อเคสถูกส่งต่อ ผู้เชี่ยวชาญจะตรวจสอบภาพและข้อมูลเชิงคลินิกที่เกี่ยวข้องเพื่อวินิจฉัยเชิงลึก กำหนดข้อสรุปทางคลินิก และปิดเคสตามกระบวนการรักษา
 
 \begin{enumerate}
 \item รับเคส referral
@@ -244,7 +307,12 @@
 \item ปิดเคส
 \end{enumerate}
 
-📌 \textbf{[ใส่รูป]} Specialist dashboard
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/appendix/k123/k2-specialist-dashboard.jpg}
+  \caption{หน้าจอการทำงานของผู้เชี่ยวชาญ (Specialist) สำหรับรับเคสส่งต่อ ประเมินผล และบันทึกการวินิจฉัย}
+  \label{fig:appendix-specialist-workflow}
+\end{figure}
 
 % =====================================================
 \section{\ifenglish API and Data Exchange\else การสื่อสารข้อมูลและ API\fi}
@@ -291,24 +359,24 @@ POST /api/inference
 % =====================================================
 \section{\ifenglish DevOps and Deployment Evidence\else หลักฐาน DevOps และการ Deploy\fi}
 
+\noindent ในการพัฒนาระบบได้ใช้แนวทาง DevOps เพื่อเพิ่มความต่อเนื่องของการส่งมอบซอฟต์แวร์ โดยครอบคลุมการจัดการคอนเทนเนอร์ การทำงานแบบอัตโนมัติของ CI/CD และการติดตามผลการปรับใช้ผ่านบันทึกระบบ
+
 \begin{itemize}
   \item Docker container
   \item CI/CD pipeline
   \item Deployment logs
 \end{itemize}
 
-📌 \textbf{[ใส่รูป]} Pipeline / logs
-
 % =====================================================
 \section{\ifenglish Testing Evidence\else หลักฐานการทดสอบระบบ\fi}
+
+\noindent การทดสอบระบบครอบคลุมทั้งระดับหน่วยและระดับสมรรถนะ เพื่อยืนยันความถูกต้องของฟังก์ชัน ความครอบคลุมของกรณีทดสอบ และความสามารถในการรองรับการใช้งานจริง
 
 \begin{itemize}
   \item Unit test (Vitest)
   \item Coverage report
   \item Load test (Grafana)
 \end{itemize}
-
-📌 \textbf{[ใส่รูป]} Test results
 
 % =====================================================
 \section{\ifenglish Security Implementation\else การออกแบบความปลอดภัย\fi}
