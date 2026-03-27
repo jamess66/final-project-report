@@ -701,6 +701,36 @@ GET       /api/v1/health/startup
   \item Deployment logs
 \end{itemize}
 
+\noindent ภาพหลักฐานในหัวข้อนี้แสดงการทำงานจริงของโครงสร้างพื้นฐานฝั่งปฏิบัติการ โดยครอบคลุมสถานะคอนเทนเนอร์ของระบบ และประวัติการทำงานของกระบวนการ CI/CD สำหรับทั้งส่วนหน้าและส่วนหลังของระบบ
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/container-cicd/fe-container.png}
+  \caption{การรันคอนเทนเนอร์ของบริการฝั่งผู้ใช้งานบน Docker Desktop}
+  \label{fig:appendix-k9-fe-container}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/container-cicd/be-container.png}
+  \caption{การรันคอนเทนเนอร์ของบริการฝั่งระบบงานและบริการประกอบบน Docker Desktop}
+  \label{fig:appendix-k9-be-container}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/container-cicd/fe-actions.png}
+  \caption{การทำงานของ GitHub Actions สำหรับการปรับใช้บริการฝั่ง Frontend}
+  \label{fig:appendix-k9-fe-actions}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig/container-cicd/be-actions.png}
+  \caption{การทำงานของ GitHub Actions สำหรับการปรับใช้บริการฝั่ง Backend}
+  \label{fig:appendix-k9-be-actions}
+\end{figure}
+
 % =====================================================
 \section{\ifenglish Testing Evidence\else หลักฐานการทดสอบระบบ\fi}
 
