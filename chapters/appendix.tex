@@ -1,25 +1,180 @@
 \chapter{\ifenglish Appendix\else ภาคผนวก\fi}
 
-\section{\ifenglish Supplementary Materials\else เอกสารประกอบเพิ่มเติม\fi}
+% =====================================================
+\section{\ifenglish End-to-End System Execution\else การทำงานของระบบแบบครบวงจร (Real Execution)\fi}
 
-เพิ่มเอกสารหรือเนื้อหาประกอบที่เกี่ยวข้องกับโครงงานในส่วนนี้
-เช่น แบบฟอร์มที่ใช้จริง ตัวอย่างข้อมูล หรือคำอธิบายเชิงเทคนิคเพิ่มเติม
+แสดงการทำงานจริงของระบบตั้งแต่ต้นจนจบ
 
-\textbf{\ifenglish Placeholder Links\else ลิงก์ตัวอย่างสำหรับแทนที่\fi}
 \begin{itemize}
-  \item Dataset: \url{https://example.com/edent-elder/dataset}
-  \item Model Card: \url{https://example.com/edent-elder/model-card}
-  \item Test Evidence: \url{https://example.com/edent-elder/test-report}
+  \item Login → Register → Consent → Workflow → Diagnosis
+  \item การไหลของข้อมูลจริงในระบบ
 \end{itemize}
 
+📌 \textbf{[ใส่รูป]} Full real workflow (step-by-step screenshots)
+
+% =====================================================
+\section{\ifenglish Authentication and User Management\else ระบบยืนยันตัวตนและจัดการผู้ใช้งาน\fi}
+
+\subsection*{Login Flow}
+\begin{itemize}
+  \item กรอกเบอร์โทร
+  \item รับ OTP
+  \item ยืนยันตัวตน
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Login UI + OTP screen
+
+\subsection*{Register and Consent}
+\begin{itemize}
+  \item ลงทะเบียนผู้ใช้ใหม่
+  \item ยอมรับ PDPA Consent
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Register + Consent screen
+
+\subsection*{Role Assignment}
+\begin{itemize}
+  \item Patient
+  \item VHV (อสม.)
+  \item Screener
+  \item Specialist
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Role selection / dashboard แตกต่างกัน
+
+% =====================================================
+\section{\ifenglish Patient and VHV Workflow\else การใช้งานของผู้ป่วยและ อสม.\fi}
+
+\begin{enumerate}
+\item เลือกผู้ป่วย
+\item กรอกข้อมูล
+\item ทำแบบประเมิน OHAT / OHIP
+\item ถ่ายภาพช่องปาก
+\item ส่งข้อมูลเข้า AI
+\end{enumerate}
+
+📌 \textbf{[ใส่รูป]} ทุก step แบบ sequence
+
+% =====================================================
+\section{\ifenglish AI Processing and Results\else การประมวลผล AI และผลลัพธ์\fi}
+
+\begin{itemize}
+  \item ภาพ input จริง
+  \item ผล AI (classification / detection)
+  \item confidence score
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Before / After AI
+
+% =====================================================
+\section{\ifenglish Screener Workflow\else การทำงานของผู้คัดกรอง\fi}
+
+\begin{enumerate}
+\item ดูรายการเคส
+\item วิเคราะห์ผล AI
+\item ตัดสินใจส่งต่อ
+\end{enumerate}
+
+📌 \textbf{[ใส่รูป]} Screener dashboard + case detail
+
+% =====================================================
+\section{\ifenglish Specialist Workflow\else การทำงานของผู้เชี่ยวชาญ\fi}
+
+\begin{enumerate}
+\item รับเคส referral
+\item ตรวจสอบภาพและข้อมูล
+\item วินิจฉัย
+\item ปิดเคส
+\end{enumerate}
+
+📌 \textbf{[ใส่รูป]} Specialist dashboard
+
+% =====================================================
+\section{\ifenglish API and Data Exchange\else การสื่อสารข้อมูลและ API\fi}
+
+\subsection*{Authentication API}
+\begin{verbatim}
+POST /api/auth/otp
+\end{verbatim}
+
+\subsection*{Inference API}
+\begin{verbatim}
+POST /api/inference
+\end{verbatim}
+
+\subsection*{Response Example}
+\begin{verbatim}
+{
+  "risk": "high",
+  "confidence": 0.91
+}
+\end{verbatim}
+
+% =====================================================
+\section{\ifenglish Database Structure\else โครงสร้างฐานข้อมูล\fi}
+
+\begin{itemize}
+  \item Patient table
+  \item Case table
+  \item AI result table
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} ER Diagram จริง
+
+% =====================================================
+\section{\ifenglish DevOps and Deployment Evidence\else หลักฐาน DevOps และการ Deploy\fi}
+
+\begin{itemize}
+  \item Docker container
+  \item CI/CD pipeline
+  \item Deployment logs
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Pipeline / logs
+
+% =====================================================
+\section{\ifenglish Testing Evidence\else หลักฐานการทดสอบระบบ\fi}
+
+\begin{itemize}
+  \item Unit test (Vitest)
+  \item Coverage report
+  \item Load test (Grafana)
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Test results
+
+% =====================================================
+\section{\ifenglish Security Implementation\else การออกแบบความปลอดภัย\fi}
+
+\begin{itemize}
+  \item JWT Flow
+  \item RBAC
+  \item Encryption
+\end{itemize}
+
+📌 \textbf{[ใส่รูป]} Security diagram / flow
+
+% =====================================================
 \section{\ifenglish System Manual\else คู่มือการใช้งานระบบ\fi}
 
-อธิบายขั้นตอนการติดตั้งและการใช้งานระบบสำหรับผู้ใช้งานแต่ละบทบาท
-พร้อมภาพหน้าจอหรือลิงก์อ้างอิงที่จำเป็น
+\subsection*{Patient / VHV}
+\begin{enumerate}
+\item Login
+\item กรอกข้อมูล
+\item ถ่ายภาพ
+\item รับผล
+\end{enumerate}
 
-\textbf{\ifenglish Manual Links\else ลิงก์คู่มือ\fi}
-\begin{itemize}
-  \item User Manual: \url{https://example.com/edent-elder/user-manual}
-  \item Admin Manual: \url{https://example.com/edent-elder/admin-manual}
-  \item API Documentation: \url{https://example.com/edent-elder/api-docs}
-\end{itemize}
+\subsection*{Screener}
+\begin{enumerate}
+\item ตรวจเคส
+\item วิเคราะห์
+\item ส่งต่อ
+\end{enumerate}
+
+\subsection*{Specialist}
+\begin{enumerate}
+\item รับเคส
+\item วินิจฉัย
+\item ปิดเคส
+\end{enumerate}
